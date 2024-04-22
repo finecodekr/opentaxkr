@@ -1,0 +1,10 @@
+requests
+bs4
+python-dateutil
+icalendar
+typer
+openpyxl
+html5lib
+ipython
+dynaconf
+yapf
