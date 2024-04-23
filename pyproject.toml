@@ -18,7 +18,8 @@ dependencies = [
     "html5lib",
     "ipython",
     "dynaconf",
-    "yapf"
+    "yapf",
+    "pycountry"
 ]
 [project.urls]
 Home = "https://github.com/finecodekr/opentaxkr"
