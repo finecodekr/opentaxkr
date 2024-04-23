@@ -66,7 +66,7 @@ def generate_format_files(source, json_filename, python_filename):
             from opentaxkr.ers import ERSRecord
             from opentaxkr.ers import 양도소득세
             from opentaxkr.ers.address import 도로명주소
-            from opentaxkr.ers.util import yn, country_name
+            from opentaxkr.ers.util import yn, country_name, deduct
             from opentaxkr.ers.양도소득세 import 주식종류코드
             from opentaxkr.models import 세무프로그램코드
         """))
@@ -106,7 +106,7 @@ def generate_format_files(source, json_filename, python_filename):
             pass
     """)
     for record in reversed(doc_format['레코드']):
-        class_def.body.insert(0, ast.parse(f"{record['서식명']}: List[{record['서식명']}] = []"))
+        class_def.body.insert(0, ast.parse(f"{record['서식명']}: List[{record['서식명']}] = field(default_factory=list)").body[0])
 
     with open(python_filename, 'w', encoding='utf8') as f:
         f.write(FormatCode(ast.unparse(module), style_config={'column_limit': 140})[0])

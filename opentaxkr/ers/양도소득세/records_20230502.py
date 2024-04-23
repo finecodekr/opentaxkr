@@ -117,7 +117,6 @@ class TI03_양도소득과세표준신고서_세율별내역(ERSRecord):
         self.과세표준 = self.양도소득금액 - self.양도소득기본공제
         if self.세율구분 != '00':
             self.산출세액 = self.과세표준 * Decimal(self.세율) / Decimal(100)
-
         self.자진납부할_세액 = self.산출세액
         self.주민세_세율 = Decimal(10)
 
@@ -846,50 +845,48 @@ class TI30_국외자산양도소득세액공제_필요경비산입신청서(ERSR
 
 
 class 양도소득세신고(양도소득세.양도소득세신고):
-    TI01_양도소득세과세표준신고서_HEADER: List[TI01_양도소득세과세표준신고서_HEADER] = []
-    TI02_양도소득세과세표준신고서_기본사항: List[TI02_양도소득세과세표준신고서_기본사항] = []
-    TI03_양도소득과세표준신고서_세율별내역: List[TI03_양도소득과세표준신고서_세율별내역] = []
-    TI04_양도소득과세표준신고서_양수인내역: List[TI04_양도소득과세표준신고서_양수인내역] = []
-    TI05_양도소득금액_계산명세: List[TI05_양도소득금액_계산명세] = []
-    TI06_주식양도소득금액_계산명세: List[TI06_주식양도소득금액_계산명세] = []
-    TI07_취득가액및필요경비계산상세명세: List[TI07_취득가액및필요경비계산상세명세] = []
-    TI08_매매계약서: List[TI08_매매계약서] = []
-    TI09_매매계약서_채무인수_추가: List[TI09_매매계약서_채무인수_추가] = []
-    TI10_매매계약서_물건: List[TI10_매매계약서_물건] = []
-    TI11_20_소재지_물건의_소재지_주소를_기입함_매매계약서_거래상대방: List[TI11_20_소재지_물건의_소재지_주소를_기입함_매매계약서_거래상대방] = []
-    TI12_매매계약서_거래내역: List[TI12_매매계약서_거래내역] = []
-    TI13_매매계약서_공인중개사인적사항: List[TI13_매매계약서_공인중개사인적사항] = []
-    TI14_농어촌주택_등_취득자에_대한_과세특례신고서: List[TI14_농어촌주택_등_취득자에_대한_과세특례신고서] = []
-    TI15_1세대1주택_특례적용신고서: List[TI15_1세대1주택_특례적용신고서] = []
-    TI16_1세대3주택이상자의_장기임대주택_등_일반세율적용신청서: List[TI16_1세대3주택이상자의_장기임대주택_등_일반세율적용신청서] = []
-    TI17_1세대3주택이상자의_장기임대주택_등_일반세율적용신청서_상세: List[TI17_1세대3주택이상자의_장기임대주택_등_일반세율적용신청서_상세] = []
-    TI18_공익사업용토지_등에_대한_세액감면신청서: List[TI18_공익사업용토지_등에_대한_세액감면신청서] = []
-    TI19_장기임대주택_또는_신축임대주택_양도소득세액감면_면제_신청서: List[TI19_장기임대주택_또는_신축임대주택_양도소득세액감면_면제_신청서] = []
-    TI20_미분양주택과세특례적용신고서: List[TI20_미분양주택과세특례적용신고서] = []
-    TI21_미분양주택과세특례적용신고서_미분양주택양도명세: List[TI21_미분양주택과세특례적용신고서_미분양주택양도명세] = []
-    TI22_구조조정대상부동산_등_세액감면신청서: List[TI22_구조조정대상부동산_등_세액감면신청서] = []
-    TI23_양도소득세특례세율적용신청서: List[TI23_양도소득세특례세율적용신청서] = []
-    TI24_조합원입주권_소유자_1세대1주택_특례적용신고서: List[TI24_조합원입주권_소유자_1세대1주택_특례적용신고서] = []
-    TI25_현물출자등에_대한_세액감면_면제신청서: List[TI25_현물출자등에_대한_세액감면_면제신청서] = []
-    TI26_주식거래명세서: List[TI26_주식거래명세서] = []
-    TI27_주식거래명세서_상세: List[TI27_주식거래명세서_상세] = []
-    TI28_대주주등신고서: List[TI28_대주주등신고서] = []
-    TI29_대주주등신고서_상세: List[TI29_대주주등신고서_상세] = []
-    TI30_국외자산양도소득세액공제_필요경비산입신청서: List[TI30_국외자산양도소득세액공제_필요경비산입신청서] = []
+    TI01_양도소득세과세표준신고서_HEADER: List[TI01_양도소득세과세표준신고서_HEADER] = field(default_factory=list)
+    TI02_양도소득세과세표준신고서_기본사항: List[TI02_양도소득세과세표준신고서_기본사항] = field(default_factory=list)
+    TI03_양도소득과세표준신고서_세율별내역: List[TI03_양도소득과세표준신고서_세율별내역] = field(default_factory=list)
+    TI04_양도소득과세표준신고서_양수인내역: List[TI04_양도소득과세표준신고서_양수인내역] = field(default_factory=list)
+    TI05_양도소득금액_계산명세: List[TI05_양도소득금액_계산명세] = field(default_factory=list)
+    TI06_주식양도소득금액_계산명세: List[TI06_주식양도소득금액_계산명세] = field(default_factory=list)
+    TI07_취득가액및필요경비계산상세명세: List[TI07_취득가액및필요경비계산상세명세] = field(default_factory=list)
+    TI08_매매계약서: List[TI08_매매계약서] = field(default_factory=list)
+    TI09_매매계약서_채무인수_추가: List[TI09_매매계약서_채무인수_추가] = field(default_factory=list)
+    TI10_매매계약서_물건: List[TI10_매매계약서_물건] = field(default_factory=list)
+    TI11_20_소재지_물건의_소재지_주소를_기입함_매매계약서_거래상대방: List[TI11_20_소재지_물건의_소재지_주소를_기입함_매매계약서_거래상대방] = field(default_factory=list)
+    TI12_매매계약서_거래내역: List[TI12_매매계약서_거래내역] = field(default_factory=list)
+    TI13_매매계약서_공인중개사인적사항: List[TI13_매매계약서_공인중개사인적사항] = field(default_factory=list)
+    TI14_농어촌주택_등_취득자에_대한_과세특례신고서: List[TI14_농어촌주택_등_취득자에_대한_과세특례신고서] = field(default_factory=list)
+    TI15_1세대1주택_특례적용신고서: List[TI15_1세대1주택_특례적용신고서] = field(default_factory=list)
+    TI16_1세대3주택이상자의_장기임대주택_등_일반세율적용신청서: List[TI16_1세대3주택이상자의_장기임대주택_등_일반세율적용신청서] = field(default_factory=list)
+    TI17_1세대3주택이상자의_장기임대주택_등_일반세율적용신청서_상세: List[TI17_1세대3주택이상자의_장기임대주택_등_일반세율적용신청서_상세] = field(default_factory=list)
+    TI18_공익사업용토지_등에_대한_세액감면신청서: List[TI18_공익사업용토지_등에_대한_세액감면신청서] = field(default_factory=list)
+    TI19_장기임대주택_또는_신축임대주택_양도소득세액감면_면제_신청서: List[TI19_장기임대주택_또는_신축임대주택_양도소득세액감면_면제_신청서] = field(default_factory=list)
+    TI20_미분양주택과세특례적용신고서: List[TI20_미분양주택과세특례적용신고서] = field(default_factory=list)
+    TI21_미분양주택과세특례적용신고서_미분양주택양도명세: List[TI21_미분양주택과세특례적용신고서_미분양주택양도명세] = field(default_factory=list)
+    TI22_구조조정대상부동산_등_세액감면신청서: List[TI22_구조조정대상부동산_등_세액감면신청서] = field(default_factory=list)
+    TI23_양도소득세특례세율적용신청서: List[TI23_양도소득세특례세율적용신청서] = field(default_factory=list)
+    TI24_조합원입주권_소유자_1세대1주택_특례적용신고서: List[TI24_조합원입주권_소유자_1세대1주택_특례적용신고서] = field(default_factory=list)
+    TI25_현물출자등에_대한_세액감면_면제신청서: List[TI25_현물출자등에_대한_세액감면_면제신청서] = field(default_factory=list)
+    TI26_주식거래명세서: List[TI26_주식거래명세서] = field(default_factory=list)
+    TI27_주식거래명세서_상세: List[TI27_주식거래명세서_상세] = field(default_factory=list)
+    TI28_대주주등신고서: List[TI28_대주주등신고서] = field(default_factory=list)
+    TI29_대주주등신고서_상세: List[TI29_대주주등신고서_상세] = field(default_factory=list)
+    TI30_국외자산양도소득세액공제_필요경비산입신청서: List[TI30_국외자산양도소득세액공제_필요경비산입신청서] = field(default_factory=list)
 
     def calculate(self):
         for record in self.TI06_주식양도소득금액_계산명세:
             record.calculate()
         self.TI03_양도소득과세표준신고서_세율별내역.clear()
-
         for index, record in enumerate(self.TI06_주식양도소득금액_계산명세):
             record.일련번호 = str(index + 1).zfill(6)
-
-        양도소득기본공제_한도 = 2_500_000
+        양도소득기본공제_한도 = 2500000
         for v_국내외구분, group in groupby(self.TI06_주식양도소득금액_계산명세, lambda x: x.국내외구분):
             국내외분 = '1' if v_국내외구분 == '1' else '9'
             for v_주식종류코드, records in groupby(group, lambda x: x.주식종류코드):
-                양도소득금액 = sum(record.전체양도소득금액 for record in records)
+                양도소득금액 = sum((record.전체양도소득금액 for record in records))
                 양도소득기본공제, 양도소득기본공제_한도 = deduct(양도소득금액, 양도소득기본공제_한도)
                 self.TI03_양도소득과세표준신고서_세율별내역.append(
                     TI03_양도소득과세표준신고서_세율별내역(국내외분=국내외분,
@@ -899,18 +896,16 @@ class 양도소득세신고(양도소득세.양도소득세신고):
                                            양도소득기본공제=양도소득기본공제,
                                            과세표준=양도소득금액 - 양도소득기본공제,
                                            농어촌특별세_세율=Decimal(20)))
-
             세율별내역 = [r for r in self.TI03_양도소득과세표준신고서_세율별내역 if r.국내외분 == 국내외분 and r.세율구분 != '00']
             self.TI03_양도소득과세표준신고서_세율별내역.append(
                 TI03_양도소득과세표준신고서_세율별내역(국내외분='1' if v_국내외구분 == '1' else '9',
                                        세율구분='00',
                                        세율=Decimal('0'),
-                                       양도소득금액=sum(r.양도소득금액 for r in 세율별내역),
-                                       양도소득기본공제=sum(r.양도소득기본공제 for r in 세율별내역),
-                                       과세표준=sum(r.과세표준 for r in 세율별내역),
-                                       산출세액=sum(r.산출세액 for r in 세율별내역),
-                                       자진납부할_세액=sum(r.자진납부할_세액 for r in 세율별내역),)
-            )
+                                       양도소득금액=sum((r.양도소득금액 for r in 세율별내역)),
+                                       양도소득기본공제=sum((r.양도소득기본공제 for r in 세율별내역)),
+                                       과세표준=sum((r.과세표준 for r in 세율별내역)),
+                                       산출세액=sum((r.산출세액 for r in 세율별내역)),
+                                       자진납부할_세액=sum((r.자진납부할_세액 for r in 세율별내역))))
         합계내역 = [r for r in self.TI03_양도소득과세표준신고서_세율별내역 if r.세율구분 == '00' and r.국내외분 != 'Z']
         self.TI03_양도소득과세표준신고서_세율별내역.append(
             TI03_양도소득과세표준신고서_세율별내역(국내외분='Z',
@@ -918,13 +913,11 @@ class 양도소득세신고(양도소득세.양도소득세신고):
                                    양도소득금액=sum((record.양도소득금액 for record in 합계내역)),
                                    양도소득기본공제=sum((record.양도소득기본공제 for record in 합계내역)),
                                    과세표준=sum((record.과세표준 for record in 합계내역)),
-                                   산출세액=sum(r.산출세액 for r in 합계내역),
-                                   자진납부세액=sum(r.자진납부할_세액 for r in 합계내역),
-                                   주민세_소득세자진납부할_세액=sum(r.자진납부할_세액 for r in 합계내역),
-                                   주민세_산출세액=int(sum(r.산출세액 for r in 합계내역) * Decimal('0.1')),
-                                   주민세_자진납부세액=int(sum(r.산출세액 for r in 합계내역) * Decimal('0.1')),)
-        )
-        # 지방소득세도 포함한다.
+                                   산출세액=sum((r.산출세액 for r in 합계내역)),
+                                   자진납부세액=sum((r.자진납부할_세액 for r in 합계내역)),
+                                   주민세_소득세자진납부할_세액=sum((r.자진납부할_세액 for r in 합계내역)),
+                                   주민세_산출세액=int(sum((r.산출세액 for r in 합계내역)) * Decimal('0.1')),
+                                   주민세_자진납부세액=int(sum((r.산출세액 for r in 합계내역)) * Decimal('0.1'))))
         self.TI03_양도소득과세표준신고서_세율별내역.append(
             TI03_양도소득과세표준신고서_세율별내역(국내외분='Z', 세율구분='98', 과세표준=self.TI03_양도소득과세표준신고서_세율별내역[-1].과세표준 * Decimal(0.1)))
         address = 도로명주소.parse(self.납세자.주소)
