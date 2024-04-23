@@ -8,6 +8,17 @@ authors = [{name = "Pak Youngrok", email = "youngrok@finecode.kr"}]
 license = {file = "LICENSE"}
 classifiers = ["License :: OSI Approved :: Apache Software License"]
 dynamic = ["version", "description"]
-
+dependencies = [
+    "requests",
+    "bs4",
+    "python-dateutil",
+    "icalendar",
+    "typer",
+    "openpyxl",
+    "html5lib",
+    "ipython",
+    "dynaconf",
+    "yapf"
+]
 [project.urls]
 Home = "https://github.com/finecodekr/opentaxkr"
