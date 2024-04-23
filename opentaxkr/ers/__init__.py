@@ -2,7 +2,7 @@ import itertools
 from dataclasses import asdict, dataclass
 from datetime import date
 from types import ModuleType
-from typing import List, Dict, ClassVar
+from typing import List, Dict, ClassVar, get_type_hints
 
 from opentaxkr.ers.report import detect_report_type, 전자신고서식
 
@@ -14,6 +14,10 @@ class ERSReport:
 
     def __init__(self):
         self.format: 전자신고서식 = self.format_class.as_of()
+
+        for field, type_hint in get_type_hints(self.__class__, include_extras=True).items():
+            if type_hint._name == 'List' and type_hint.__args__ and issubclass(type_hint.__args__[0], ERSRecord):
+                setattr(self, field, [])
 
     @classmethod
     def records_module(cls) -> ModuleType:
