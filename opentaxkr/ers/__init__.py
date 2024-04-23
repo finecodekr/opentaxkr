@@ -1,5 +1,5 @@
 import itertools
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, fields
 from datetime import date
 from types import ModuleType
 from typing import List, Dict, ClassVar, get_type_hints
@@ -39,6 +39,17 @@ class ERSReport:
 
 @dataclass(kw_only=True)
 class ERSRecord:
+
+    def __new__(cls, *args, **kwargs):
+        cls.fields = {field.name: field for field in fields(cls)}
+        return super().__new__(cls)
+
+    def __setattr__(self, key, value):
+        if isinstance(value, self.fields[key].type) or value is None:
+            super().__setattr__(key, value)
+        else:
+            super().__setattr__(key, self.fields[key].type(value))
+
     def asdict(self):
         return dict(서식명=self.__class__.__name__) | asdict(self)
 
