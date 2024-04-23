@@ -310,6 +310,8 @@ class TI06_주식양도소득금액_계산명세(ERSRecord):
 
     def __post_init__(self):
         self.국내외구분 = '1' if self.소재지국 == 'KR' else '2'
+        self.자동계산불러오기구분값 = '1'
+        self.소재지국명 = country_name(self.소재지국)
         self.전체양도소득금액 = self.양도가액 - self.취득가액 - self.필요경비
 
 
