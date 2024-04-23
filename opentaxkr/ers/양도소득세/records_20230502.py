@@ -844,6 +844,7 @@ class TI30_국외자산양도소득세액공제_필요경비산입신청서(ERSR
     공란: str = field(default=None, metadata={'max_length': 25, '점검': '', '비고': 'SPACE'})
 
 
+@dataclass(kw_only=True)
 class 양도소득세신고(양도소득세.양도소득세신고):
     TI01_양도소득세과세표준신고서_HEADER: List[TI01_양도소득세과세표준신고서_HEADER] = field(default_factory=list)
     TI02_양도소득세과세표준신고서_기본사항: List[TI02_양도소득세과세표준신고서_기본사항] = field(default_factory=list)

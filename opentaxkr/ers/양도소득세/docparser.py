@@ -102,6 +102,7 @@ def generate_format_files(source, json_filename, python_filename):
             ))
 
     class_def = reset_class_fields(module, '양도소득세신고', f"""\
+        @dataclass(kw_only=True)
         class 양도소득세신고(양도소득세.양도소득세신고):
             pass
     """)
