@@ -6,7 +6,7 @@ from dataclasses import dataclass, field, fields
 
 import requests
 
-from config import settings
+from opentaxkr.config import settings
 
 with open(os.path.dirname(__file__) + '/법정동코드_국세청홈페이지_18년6월7일.csv', encoding='utf8') as f:
     법정동코드표_국세청 = [[col for col in row] for row in csv.reader(f)]
