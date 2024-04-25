@@ -6,12 +6,12 @@ from opentaxkr.ers.report import 전자신고서식
 
 class 양도소득_개인지방소득세신고서식(전자신고서식):
     module = '양도소득세'
-    report_date_field = '작성일자'
+    report_date_field = '적용서식'
 
     def extract_기준일자(self, data: BinaryIO):
         return datetime.strptime(self.extract_field(
-            self.find_field('TI01_양도소득세과세표준신고서_HEADER', self.report_date_field), data
-        ),'%Y%m%d').date()
+            self.find_field('LI01_양도소득_과세표준확정신고_HEADER', self.report_date_field), data
+        ),'V%Y.%m.%d').date()
 
     @staticmethod
     def 주택임대사업자_업종코드():

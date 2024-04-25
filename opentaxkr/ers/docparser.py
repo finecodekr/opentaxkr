@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from opentaxkr.ers.util import strip
 
 
-def parse(filename, prefix):
+def parse(filename, prefix, overrides=None):
     '''
         국세청에서 배포한 전자신고 파일설명서 DOCX를 MS WORD에서 웹 페이지로 저장.
         그 파일을 파싱해서 포맷 정보를 dict로 반환한다.
@@ -36,7 +36,7 @@ def parse(filename, prefix):
             else:
                 continue
 
-            서식명 = normalize_field_name(f'{prefix}{index:02}_{title.text.replace("○ ", "").replace('테이블', '')}')
+            서식명 = normalize_field_name(f'{prefix}{index:02}_{title.text.replace("○ ", "").replace('테이블', '').replace('레코드', '')}')
             print(서식명)
 
             formats.setdefault(서식명, {'서식명': 서식명, '필드': []})
@@ -63,9 +63,13 @@ def parse(filename, prefix):
                 if not tds[0].text.strip().isnumeric() or not strip(tds[1].text.replace('\xa0', '')):
                     break
 
+                field_name = normalize_field_name(strip(tds[1].text))
+                if any(f for f in record['필드'] if f['name'] == field_name):
+                    field_name = f'{field_name}2'
+
                 field = {
                     '번호': strip(tds[0].text),
-                    'name': normalize_field_name(strip(tds[1].text)),
+                    'name': field_name,
                     '한글명': strip(tds[1].text),
                     'TYPE': strip(tds[2 + i].text),
                     '길이': strip(tds[3 + i].text),
@@ -80,6 +84,9 @@ def parse(filename, prefix):
                     record['서식코드'] = field.get('점검내용', field.get('점검'))
                 if ',' in field['길이']:
                     field['길이'], field['소수점길이'] = field['길이'].split(',')
+
+                if overrides and overrides.get(서식명, {}).get(field['name']):
+                    field.update(overrides[서식명][field['name']])
 
                 record['필드'].append(field)
 

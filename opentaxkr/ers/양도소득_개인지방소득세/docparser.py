@@ -9,7 +9,14 @@ from opentaxkr.ers.docparser import reset_class_fields, parse, convert_type, fie
 
 
 def generate_format_files(source, json_filename, python_filename):
-    doc_format = parse(source, 'LI')
+    doc_format = parse(source, 'LI', overrides={
+        'LI02_양도소득_과세표준확정신고_기본정보': {
+            '신고구분': {
+                '점검': '11,13'
+            }
+        }
+    })
+
     with open(json_filename, 'w', encoding='utf8') as f:
         json.dump(doc_format, f, indent=4, ensure_ascii=False)
 
