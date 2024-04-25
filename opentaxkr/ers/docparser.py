@@ -26,6 +26,9 @@ def parse(filename, prefix):
         soup = BeautifulSoup(f.read(), 'html.parser')
 
         for table in soup.find_all('table'):
+            if table.tr.td.text.strip() != '번호':
+                continue
+
             title = find_previous_non_table_sibling(table)
 
             if title and '○ ' in title.text:
@@ -44,7 +47,7 @@ def parse(filename, prefix):
             for tr in table.find_all('tr'):
                 tds = tr.find_all('td')
                 if tds[0].text.strip() == '번호':
-                    if strip(tds[2].text) in ['신고서 항목', '신고서항목', '서식번호', '서식 항목']:
+                    if strip(tds[2].text) in ['신고서 항목', '신고서항목', '서식번호', '서식 항목', '영문명']:
                         i = 1
 
                     점검_index = 6 + i if len(tds) >= 7 else 5 + i
@@ -56,6 +59,9 @@ def parse(filename, prefix):
                     continue
 
                 점검_index_diff = -sum(int(td.get('colspan', 1)) - 1 for td in tds)
+
+                if not tds[0].text.strip().isnumeric() or not strip(tds[1].text.replace('\xa0', '')):
+                    break
 
                 field = {
                     '번호': strip(tds[0].text),

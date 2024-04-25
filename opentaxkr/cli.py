@@ -13,7 +13,7 @@ def parse(filename: str):
         data = f.read()
         records = detect_report_type(data).parse(data.splitlines())
         print(records)
-        print(양도소득세신고.from_list_of_dict(records).records)
+        # print(양도소득세신고.from_list_of_dict(records).records)
 
 
 app()
