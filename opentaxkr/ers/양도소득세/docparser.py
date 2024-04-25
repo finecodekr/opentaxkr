@@ -1,60 +1,15 @@
 import ast
 import json
-import re
-import codecs
 import textwrap
-from difflib import SequenceMatcher
 from pathlib import Path
 
-import autopep8
-from bs4 import BeautifulSoup
-from pycodestyle import StyleGuide
-from pydantic import Field
 from yapf.yapflib.yapf_api import FormatCode
 
-from opentaxkr.ers.docparser import reset_class_fields, parse
-
-
-def convert_type(field):
-    if field['TYPE'] == 'CHAR':
-        return 'str'
-    elif field['TYPE'] == 'NUMBER' and '소수점길이' in field:
-        return 'Decimal'
-    elif field['TYPE'] == 'NUMBER':
-        return 'int'
-
-
-def field_options(field):
-    if field['name'] in ['자료구분', '서식코드', '레코드구분', '레코드_구분']:
-        default_expression = f"default='{field['점검']}', "
-    elif 'Not Null' not in field['비고']:
-        default_expression = 'default=None, '
-    elif 'default' in field['비고']:
-        default_value = re.findall(r'default ([^ ]+)', field['비고'])[0]
-        if convert_type(field) == 'int':
-            default_expression = f'default={default_value}, '
-        else:
-            default_expression = f"default='{default_value}', "
-    else:
-        default_expression = ''
-
-    options = {
-        'max_length': int(field['길이']),
-        '점검': field['점검'],
-        '비고': field['비고']
-    }
-    if '소수점길이' in field:
-        options['decimal_places'] = int(field['소수점길이'])
-
-    # TODO 점검 값으로 제한하기
-    # if ',' in field['점검']:
-    #     return " = Literal['" + "', '".join(field['점검'].split(',')) + "']"
-
-    return f"field({default_expression}metadata={repr(options)})"
+from opentaxkr.ers.docparser import reset_class_fields, parse, convert_type, field_options
 
 
 def generate_format_files(source, json_filename, python_filename):
-    doc_format = parse(source)
+    doc_format = parse(source, prefix='TI')
     with open(json_filename, 'w', encoding='utf8') as f:
         json.dump(doc_format, f, indent=4, ensure_ascii=False)
 

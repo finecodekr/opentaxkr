@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from opentaxkr.ers.util import strip
 
 
-def parse(filename):
+def parse(filename, prefix):
     '''
         국세청에서 배포한 전자신고 파일설명서 DOCX를 MS WORD에서 웹 페이지로 저장.
         그 파일을 파싱해서 포맷 정보를 dict로 반환한다.
@@ -33,7 +33,7 @@ def parse(filename):
             else:
                 continue
 
-            서식명 = normalize_field_name(f'TI{index:02}_{title.text.replace("○ ", "").replace('테이블', '')}')
+            서식명 = normalize_field_name(f'{prefix}{index:02}_{title.text.replace("○ ", "").replace('테이블', '')}')
             print(서식명)
 
             formats.setdefault(서식명, {'서식명': 서식명, '필드': []})
@@ -147,3 +147,41 @@ def reset_class_fields(module: ast.Module, class_name: str, default_code: str):
         module.body.append(class_def)
 
     return class_def
+
+
+def convert_type(field):
+    if field['TYPE'] == 'CHAR':
+        return 'str'
+    elif field['TYPE'] == 'NUMBER' and '소수점길이' in field:
+        return 'Decimal'
+    elif field['TYPE'] == 'NUMBER':
+        return 'int'
+
+
+def field_options(field):
+    if field['name'] in ['자료구분', '서식코드', '레코드구분', '레코드_구분']:
+        default_expression = f"default='{field['점검']}', "
+    elif 'Not Null' not in field['비고']:
+        default_expression = 'default=None, '
+    elif 'default' in field['비고']:
+        default_value = re.findall(r'default ([^ ]+)', field['비고'])[0]
+        if convert_type(field) == 'int':
+            default_expression = f'default={default_value}, '
+        else:
+            default_expression = f"default='{default_value}', "
+    else:
+        default_expression = ''
+
+    options = {
+        'max_length': int(field['길이']),
+        '점검': field['점검'],
+        '비고': field['비고']
+    }
+    if '소수점길이' in field:
+        options['decimal_places'] = int(field['소수점길이'])
+
+    # TODO 점검 값으로 제한하기
+    # if ',' in field['점검']:
+    #     return " = Literal['" + "', '".join(field['점검'].split(',')) + "']"
+
+    return f"field({default_expression}metadata={repr(options)})"
