@@ -36,6 +36,9 @@ class ERSReport:
     def serialize(self):
         return [self.format.serialize_record(record.asdict()) for record in self.record_list()]
 
+    def serialize_and_format(self):
+        return self.format.format_serialized_records(self.serialize())
+
 
 @dataclass(kw_only=True)
 class ERSRecord:
