@@ -1,9 +1,11 @@
+from dataclasses import asdict
 from datetime import date
 from decimal import Decimal
 from unittest import TestCase
 
 from opentaxkr.ers import detect_report_type
 from opentaxkr.ers.util import ZERO
+from opentaxkr.ers.양도소득_개인지방소득세.records_20230703 import 양도소득_개인지방소득세신고
 from opentaxkr.ers.양도소득세 import 양도소득_과세구분, 자산의종류, 주식종류코드, 취득유형
 from opentaxkr.ers.양도소득세.records_20230502 import TI06_주식양도소득금액_계산명세, 양도소득세신고
 from opentaxkr.models import 세무대리인, 납세자
@@ -26,6 +28,7 @@ class Test주식양도소득세신고(TestCase):
             과세기간=date(2023, 1, 1),
             세무대리인_obj=세무대리인(
                 대표자주민등록번호='',
+                법인등록번호='1101710104593',
                 대표자성명='',
                 전화번호='021234567',
                 사업자등록번호='5158612345',
@@ -109,3 +112,9 @@ class Test주식양도소득세신고(TestCase):
             expected[1]['도로명_읍면동일련번호'] = '04'
             expected[1]['도로명_지하만있는건물구분'] = '0'
             self.assertEqual(expected, report.serialize())
+
+        with open('samples/양도소득세_지방소득세_C116300.Y11', 'rb') as f:
+            data = f.read()
+            expected = detect_report_type(data).parse(data.splitlines())
+
+            self.assertEqual(expected, 양도소득_개인지방소득세신고(report).serialize())

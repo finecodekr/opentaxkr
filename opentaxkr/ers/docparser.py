@@ -172,7 +172,7 @@ def convert_type(field):
 
 
 def field_options(field):
-    if field['name'] in ['자료구분', '서식코드', '레코드구분', '레코드_구분']:
+    if field['name'] in ['자료구분', '서식코드', '레코드구분', '레코드_구분', '세목구분코드']:
         default_expression = f"default='{field['점검']}', "
     elif 'Not Null' not in field['비고']:
         default_expression = 'default=None, '

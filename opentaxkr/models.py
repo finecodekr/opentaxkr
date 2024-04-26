@@ -1,6 +1,7 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 
+from opentaxkr.ers.address import 도로명주소
 
 세무프로그램코드 = '9000'
 
@@ -27,16 +28,20 @@ class 납세자:
     국적코드: str = 'KR'
     거주지국가코드: str = 'KR'
 
+    도로명주소: 도로명주소 = field(default=None, init=False)
+
     def __post_init__(self):
         if self.사용자구분코드:
             self.사용자구분코드 = 홈택스사용자구분(self.사용자구분코드)
 
         self.납세자ID = self.납세자ID.replace('-', '')
+        self.도로명주소 = 도로명주소.parse(self.주소)
 
 
 @dataclass(kw_only=True)
 class 세무대리인:
     대표자주민등록번호: str
+    법인등록번호: str = None
     대표자성명: str
     법인명_상호: str = None
     전화번호: str

@@ -75,7 +75,7 @@ class 전자신고서식:
         return None
 
     def match_record(self, record, bytes):
-        check_fields = ['레코드구분', '레코드_구분', '자료구분', '서식코드', '자료구분_표지', '자료구분_합계', '자료구분_자료', '신고구분', '제출자구분', '권번호']
+        check_fields = ['레코드구분', '레코드_구분', '자료구분', '서식코드', '자료구분_표지', '자료구분_합계', '자료구분_자료', '신고구분', '제출자구분', '권번호', '세목구분코드']
         date_fields = ['제출년월일']
 
         checked_fields_exists = False

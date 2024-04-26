@@ -21,16 +21,13 @@ def generate_format_files(source, json_filename, python_filename):
         json.dump(doc_format, f, indent=4, ensure_ascii=False)
 
     imports = ast.parse(textwrap.dedent(f"""\
-            from itertools import groupby
-            from typing import List
-            from decimal import Decimal
             from dataclasses import dataclass, field
-            from opentaxkr.ers import ERSRecord
+            from decimal import Decimal
+            from typing import List
+            
+            from opentaxkr.ers import ERSRecord, ERSReport
             from opentaxkr.ers import 양도소득세
-            from opentaxkr.ers.address import 도로명주소
-            from opentaxkr.ers.util import yn, country_name, deduct
-            from opentaxkr.ers.양도소득세 import 주식종류코드
-            from opentaxkr.models import 세무프로그램코드
+            from opentaxkr.ers.양도소득_개인지방소득세 import 양도소득_개인지방소득세신고서식
         """))
 
     if Path(python_filename).exists():
@@ -63,13 +60,12 @@ def generate_format_files(source, json_filename, python_filename):
                 simple=1
             ))
 
-    class_def = reset_class_fields(module, '양도소득세신고', f"""\
-        @dataclass(kw_only=True)
+    class_def = reset_class_fields(module, '양도소득_개인지방소득세신고', f"""\
         class 양도소득_개인지방소득세신고(ERSReport):
             pass
     """)
     for record in reversed(doc_format['레코드']):
-        class_def.body.insert(0, ast.parse(f"{record['서식명']}: List[{record['서식명']}] = field(default_factory=list)").body[0])
+        class_def.body.insert(0, ast.parse(f"{record['서식명']}: List[{record['서식명']}]").body[0])
 
     with open(python_filename, 'w', encoding='utf8') as f:
         f.write(FormatCode(ast.unparse(module), style_config={'column_limit': 140})[0])
