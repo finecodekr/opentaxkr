@@ -48,10 +48,17 @@ class ERSRecord:
         return super().__new__(cls)
 
     def __setattr__(self, key, value):
-        if isinstance(value, self.fields[key].type) or value is None:
-            super().__setattr__(key, value)
-        else:
-            super().__setattr__(key, self.fields[key].type(value))
+        value = self.wrap_as_field_type(key, value)
+
+        if self.fields[key].default is not None and value is None:
+            raise ValueError(f"{key} is required")
+
+        super().__setattr__(key, value)
+
+    def wrap_as_field_type(self, key, value):
+        if value is not None and not isinstance(value, self.fields[key].type):
+            value = self.fields[key].type(value)
+        return value
 
     def asdict(self):
         return dict(서식명=self.__class__.__name__) | asdict(self)
