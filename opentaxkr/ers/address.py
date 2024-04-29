@@ -71,18 +71,13 @@ class 도로명주소:
             normalized += ' (' + ', '.join(법정동명_건물명) + ')'
 
         parts = address.split(' ')
-        try:
-            for l in range(len(parts), 2, -1):
-                data = 도로명주소.search(' '.join(parts[:l]))
-                if data['results']['juso']:
-                    juso = data['results']['juso'][0]
-                    return 도로명주소.from_juso_response(juso, ' '.join(parts[l:]))
-                    # return 주소(normalized, juso['siNm'], juso['sggNm'], juso['emdNm'], juso['zipNo'], juso['roadAddr'], data=data)
-            else:
-                return 도로명주소(normalized)
-        except Exception as e:
-            logging.exception(e)
-            return 도로명주소(text)
+        for l in range(len(parts), 2, -1):
+            data = 도로명주소.search(' '.join(parts[:l]))
+            if data['results']['juso']:
+                juso = data['results']['juso'][0]
+                return 도로명주소.from_juso_response(juso, ' '.join(parts[l:]))
+        else:
+            raise ValueError(f'주소를 찾을 수 없습니다. {normalized}')
 
     @staticmethod
     def search(address):
