@@ -8,8 +8,8 @@ import requests
 
 from opentaxkr.config import settings
 
-with open(os.path.dirname(__file__) + '/법정동코드_국세청홈페이지_18년6월7일.csv', encoding='utf8') as f:
-    법정동코드표_국세청 = [[col for col in row] for row in csv.reader(f)]
+with open(os.path.dirname(__file__) + '/법정동코드 전체자료.txt', encoding='euckr') as f:
+    법정동코드표 = [[col for col in row] for row in csv.reader(f, delimiter='\t')]
 
 
 @dataclass(kw_only=True)
@@ -95,11 +95,12 @@ class 도로명주소:
         }).json()
 
     def __post_init__(self):
+        법정동주소 = ' '.join([self.시도명, self.시군구명, self.읍면동명])
         try:
-            row = next(filter(lambda row: row[2] == self.시도명 and row[3] == self.시군구명 and row[4] == self.읍면동명, 법정동코드표_국세청))
-            self.세무서코드, self.법정동코드 = row[0], row[1]
+            row = next(filter(lambda row: row[1] == 법정동주소, 법정동코드표))
+            self.법정동코드 = row[0]
         except:
-            self.세무서코드 = self.법정동코드 = None
+            raise ValueError(f'법정동코드를 찾을 수 없습니다. {법정동주소}')
 
         if self.산여부 == '1':
             self.특수지코드 = '1'
