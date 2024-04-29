@@ -90,7 +90,7 @@ class 도로명주소:
         }).json()
 
     def __post_init__(self):
-        법정동주소 = ' '.join([self.시도명, self.시군구명, self.읍면동명])
+        법정동주소 = ' '.join(filter(lambda x: x, [self.시도명, self.시군구명, self.읍면동명]))
         try:
             row = next(filter(lambda row: row[1] == 법정동주소, 법정동코드표))
             self.법정동코드 = row[0]
