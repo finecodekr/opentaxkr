@@ -163,7 +163,7 @@ def reset_class_fields(module: ast.Module, class_name: str, default_code: str):
 
 
 def convert_type(field):
-    if field['점검'] == '일자형식점검':
+    if field['점검'] == '일자형식점검' or field['name'].endswith('일자'):
         return 'date'
     elif field['TYPE'] == 'CHAR':
         return 'str'

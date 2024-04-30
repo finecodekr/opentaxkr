@@ -14,6 +14,7 @@ def generate_format_files(source, json_filename, python_filename):
         json.dump(doc_format, f, indent=4, ensure_ascii=False)
 
     imports = ast.parse(textwrap.dedent(f"""\
+            from datetime import date
             from itertools import groupby
             from typing import List
             from decimal import Decimal

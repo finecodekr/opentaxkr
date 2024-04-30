@@ -22,12 +22,14 @@ def generate_format_files(source, json_filename, python_filename):
 
     imports = ast.parse(textwrap.dedent(f"""\
             from dataclasses import dataclass, field
+            from datetime import date
             from decimal import Decimal
             from typing import List
-            
+
             from opentaxkr.ers import ERSRecord, ERSReport
-            from opentaxkr.ers import 양도소득세
             from opentaxkr.ers.양도소득_개인지방소득세 import 양도소득_개인지방소득세신고서식
+            from opentaxkr.ers.양도소득세.records_20230502 import 양도소득세신고
+            from opentaxkr.models import 세무프로그램코드
         """))
 
     if Path(python_filename).exists():
