@@ -4,6 +4,8 @@ from datetime import date
 from types import ModuleType
 from typing import List, Dict, ClassVar, get_type_hints
 
+import dateutil.parser
+
 from opentaxkr.ers.report import detect_report_type, 전자신고서식
 
 
@@ -56,8 +58,15 @@ class ERSRecord:
         super().__setattr__(key, value)
 
     def wrap_as_field_type(self, key, value):
-        if value is not None and not isinstance(value, self.fields[key].type):
-            value = self.fields[key].type(value)
+        if value is None:
+            return value
+
+        if self.fields[key].type is date and isinstance(value, str):
+            return dateutil.parser.parse(value).date()
+
+        if not isinstance(value, self.fields[key].type):
+            return self.fields[key].type(value)
+
         return value
 
     def asdict(self):

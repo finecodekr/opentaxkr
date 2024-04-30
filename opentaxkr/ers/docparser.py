@@ -60,7 +60,7 @@ def parse(filename, prefix, overrides=None):
 
                 점검_index_diff = -sum(int(td.get('colspan', 1)) - 1 for td in tds)
 
-                if not tds[0].text.strip().isnumeric() or not strip(tds[1].text.replace('\xa0', '')):
+                if not tds[0].text.strip()[:2].isnumeric() or not strip(tds[1].text.replace('\xa0', '')):
                     break
 
                 field_name = normalize_field_name(strip(tds[1].text))
@@ -163,7 +163,9 @@ def reset_class_fields(module: ast.Module, class_name: str, default_code: str):
 
 
 def convert_type(field):
-    if field['TYPE'] == 'CHAR':
+    if field['점검'] == '일자형식점검':
+        return 'date'
+    elif field['TYPE'] == 'CHAR':
         return 'str'
     elif field['TYPE'] == 'NUMBER' and '소수점길이' in field:
         return 'Decimal'

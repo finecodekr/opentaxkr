@@ -465,7 +465,7 @@ class TI15_1세대1주택_특례적용신고서(ERSRecord):
     소재지_통: str = field(default=None, metadata={'max_length': 4, '점검': '길이점검', '비고': 'Null허용'})
     소재지_반: str = field(default=None, metadata={'max_length': 4, '점검': '길이점검', '비고': 'Null허용'})
     면적_토지: Decimal = field(default='0', metadata={'max_length': 11, '점검': '양의실수형식점검', '비고': 'Not Null default 0', 'decimal_places': 3})
-    면적_토지: Decimal = field(default='0', metadata={'max_length': 11, '점검': '양의실수형식점검', '비고': 'Not Null default 0', 'decimal_places': 3})
+    면적_토지2: Decimal = field(default='0', metadata={'max_length': 11, '점검': '양의실수형식점검', '비고': 'Not Null default 0', 'decimal_places': 3})
     소유자_성명: str = field(metadata={'max_length': 30, '점검': '길이점검', '비고': 'Not Null'})
     소유자_주민등록번호: str = field(metadata={'max_length': 13, '점검': '길이점검', '비고': 'Not Null'})
     소유자_소득자와관계: str = field(metadata={'max_length': 2, '점검': '길이점검', '비고': 'Not Null'})

@@ -62,7 +62,7 @@ def generate_format_files(source, json_filename, python_filename):
             pass
     """)
     for record in reversed(doc_format['레코드']):
-        class_def.body.insert(0, ast.parse(f"{record['서식명']}: List[{record['서식명']}] = field(default_factory=list)").body[0])
+        class_def.body.insert(0, ast.parse(f"{record['서식명']}: List[{record['서식명']}]").body[0])
 
     with open(python_filename, 'w', encoding='utf8') as f:
         f.write(FormatCode(ast.unparse(module), style_config={'column_limit': 140})[0])
