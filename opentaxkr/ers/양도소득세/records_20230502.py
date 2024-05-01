@@ -6,7 +6,7 @@ from dataclasses import dataclass, field
 from opentaxkr.ers import ERSRecord
 from opentaxkr.ers import 양도소득세
 from opentaxkr.ers.address import 도로명주소
-from opentaxkr.ers.util import yn, country_name, deduct
+from opentaxkr.ers.util import yn, country_name, deduct, ZERO
 from opentaxkr.ers.양도소득세 import 주식종류코드
 from opentaxkr.models import 세무프로그램코드
 
@@ -894,7 +894,7 @@ class 양도소득세신고(양도소득세.양도소득세신고):
                 self.TI03_양도소득과세표준신고서_세율별내역.append(
                     TI03_양도소득과세표준신고서_세율별내역(국내외분=국내외분,
                                            세율구분=주식종류코드(v_주식종류코드).세율구분.value[0],
-                                           세율=주식종류코드(v_주식종류코드).세율구분.세율,
+                                           세율=주식종류코드(v_주식종류코드).세율구분.세율 if 양도소득금액 - 양도소득기본공제 > 0 else ZERO,
                                            양도소득금액=양도소득금액,
                                            양도소득기본공제=양도소득기본공제,
                                            과세표준=양도소득금액 - 양도소득기본공제,
