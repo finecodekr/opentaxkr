@@ -39,4 +39,5 @@ def country_name(country_code):
 
 
 def deduct(value, max_deduction):
-    return min(value, max_deduction), max(0, max_deduction- value)
+    value = max(0, value)
+    return min(value, max_deduction), max(0, max_deduction - value)
