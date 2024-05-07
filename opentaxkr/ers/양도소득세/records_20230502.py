@@ -114,12 +114,23 @@ class TI03_양도소득과세표준신고서_세율별내역(ERSRecord):
     전자신고세액공제: int = field(default=0, metadata={'max_length': 13, '점검': '양의실수형식점검', '비고': 'Not Null default 0'})
     공란: str = field(default=None, metadata={'max_length': 46, '점검': '길이점검', '비고': 'SPACE'})
 
+    분납기준 = 10_000_000
+    분납기준_50퍼센트 = 20_000_000
+
     def __post_init__(self):
         self.과세표준 = self.양도소득금액 - self.양도소득기본공제
         if self.세율구분 != '00':
-            self.산출세액 = self.과세표준 * Decimal(self.세율) / Decimal(100)
-        self.자진납부할_세액 = self.산출세액
+            self.산출세액 = int(self.과세표준 * Decimal(self.세율) / Decimal(100))
         self.주민세_세율 = Decimal(10)
+
+        if self.산출세액 <= self.분납기준:
+            self.자진납부할_세액 = self.산출세액
+        elif self.산출세액 < self.분납기준_50퍼센트:
+            self.자진납부할_세액 = self.분납기준
+        else:
+            self.자진납부할_세액 = self.산출세액 // 2
+
+        self.분납할_세액 = self.산출세액 - self.자진납부할_세액
 
 
 @dataclass(kw_only=True)

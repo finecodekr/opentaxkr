@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import date
 from enum import Enum
 
 from opentaxkr.ers.address import 도로명주소
@@ -48,7 +49,7 @@ class 세무대리인:
     사업자등록번호: str
     관리번호: str
     성명: str
-    생년월일: str
+    생년월일: date
     사업장소재지: str = None
     우편번호: str = None
     세무서코드: str = None
