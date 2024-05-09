@@ -123,14 +123,17 @@ class TI03_양도소득과세표준신고서_세율별내역(ERSRecord):
             self.산출세액 = int(self.과세표준 * Decimal(self.세율) / Decimal(100))
         self.주민세_세율 = Decimal(10)
 
-        if self.산출세액 <= self.분납기준:
-            self.자진납부할_세액 = self.산출세액
-        elif self.산출세액 < self.분납기준_50퍼센트:
-            self.자진납부할_세액 = self.분납기준
-        else:
-            self.자진납부할_세액 = self.산출세액 // 2
+        self.자진납부할_세액 = self.산출세액
 
-        self.분납할_세액 = self.산출세액 - self.자진납부할_세액
+        if self.세율구분 == '00' and self.국내외분 == 'Z':
+            if self.산출세액 <= self.분납기준:
+                self.자진납부세액 = self.산출세액
+            elif self.산출세액 < self.분납기준_50퍼센트:
+                self.자진납부세액 = self.분납기준
+            else:
+                self.자진납부세액 = self.산출세액 // 2
+
+            self.분납할_세액 = self.산출세액 - self.자진납부세액
 
 
 @dataclass(kw_only=True)
