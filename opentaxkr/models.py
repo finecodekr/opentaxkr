@@ -37,6 +37,7 @@ class 납세자:
 
         self.납세자ID = self.납세자ID.replace('-', '')
         self.도로명주소 = 도로명주소.parse(self.주소)
+        self.휴대전화번호 = self.휴대전화번호.replace('-', '')
 
 
 @dataclass(kw_only=True)
@@ -55,3 +56,6 @@ class 세무대리인:
     세무서코드: str = None
     법정동코드: str = None
     홈택스ID: str = None
+
+    def __post_init__(self):
+        self.전화번호 = self.전화번호.replace('-', '')
