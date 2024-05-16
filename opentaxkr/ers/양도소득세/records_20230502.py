@@ -131,7 +131,7 @@ class TI03_양도소득과세표준신고서_세율별내역(ERSRecord):
             elif self.산출세액 < self.분납기준_50퍼센트:
                 self.자진납부세액 = self.분납기준
             else:
-                self.자진납부세액 = self.산출세액 // 2
+                self.자진납부세액 = self.산출세액 - self.산출세액 // 2
 
             self.분납할_세액 = self.산출세액 - self.자진납부세액
 
