@@ -1,13 +1,10 @@
-from dataclasses import asdict
 from datetime import date
 from decimal import Decimal
 from unittest import TestCase
 
-from opentaxkr.ers import detect_report_type
 from opentaxkr.ers.util import ZERO
-from opentaxkr.ers.양도소득_개인지방소득세.records_20230703 import 양도소득_개인지방소득세신고
-from opentaxkr.ers.양도소득세 import 양도소득_과세구분, 자산의종류, 주식종류코드, 취득유형
-from opentaxkr.ers.양도소득세.records_20230502 import TI06_주식양도소득금액_계산명세, 양도소득세신고
+from opentaxkr.ers.양도소득_개인지방소득세 import 양도소득_개인지방소득세신고
+from opentaxkr.ers.양도소득세 import 양도소득_과세구분, 자산의종류, 주식종류코드, 취득유형, 양도소득세신고, TI06_주식양도소득금액_계산명세
 from opentaxkr.models import 세무대리인, 납세자
 
 
@@ -105,16 +102,14 @@ class Test주식양도소득세신고(TestCase):
         report.calculate()
 
         with open('samples/양도소득세_C116300.01', 'rb') as f:
-            data = f.read()
-            # 샘플 파일에 빠진 정보를 채워서 테스트 통과시키기
-            expected = detect_report_type(data).parse(data.splitlines())
-            expected[1]['도로명_도로명코드'] = '116803122006'
-            expected[1]['도로명_읍면동일련번호'] = '04'
-            expected[1]['도로명_지하만있는건물구분'] = '0'
-            self.assertEqual(expected, report.serialize())
+            # 샘플 파일에 빠진 정보를 비워서 테스트 통과시키기
+            report.TI02_양도소득세과세표준신고서_기본사항[0].도로명_도로명코드 = ''
+            report.TI02_양도소득세과세표준신고서_기본사항[0].도로명_읍면동일련번호 = ''
+            report.TI02_양도소득세과세표준신고서_기본사항[0].도로명_지하만있는건물구분 = ''
+            
+            f.seek(0)
+            self.assertEqual(f.read().splitlines(), report.serialize().splitlines())
 
         with open('samples/양도소득세_지방소득세_C116300.Y11', 'rb') as f:
             data = f.read()
-            expected = detect_report_type(data).parse(data.splitlines())
-
-            self.assertEqual(expected, 양도소득_개인지방소득세신고(report).serialize())
+            self.assertEqual(data.splitlines(), 양도소득_개인지방소득세신고(report).serialize().splitlines())

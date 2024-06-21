@@ -1,53 +1,8 @@
 import datetime
-from datetime import date, datetime
+from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import BinaryIO, List
-
-from opentaxkr.models import 납세자, 세무대리인
-from opentaxkr.ers import ERSReport, ERSRecord
-from opentaxkr.ers.report import 전자신고서식
-
-
-class 양도소득세신고서식(전자신고서식):
-    module = '양도소득세'
-    report_date_field = '작성일자'
-
-    def extract_기준일자(self, data: BinaryIO):
-        return datetime.strptime(self.extract_field(
-            self.find_field('TI01_양도소득세과세표준신고서_HEADER', self.report_date_field), data
-        ),'%Y%m%d').date()
-
-    @staticmethod
-    def 주택임대사업자_업종코드():
-        return [701101, 701102, 701103, 701104, 701301]
-
-    def filename(self, first_record):
-        return f"{date.today().strftime('%Y%m%d')}{first_record['서식코드']}.{first_record.get('세목구분코드')}"
-
-
-양도소득세신고서식.load_histories()
-
-
-class 양도소득세신고(ERSReport):
-    format_class = 양도소득세신고서식
-    report_date_field = '과세기간_년월'
-
-    def __init__(self, 납세자_obj, 과세기간: date, 세무대리인_obj: 세무대리인 = None, 작성일자: date = None, 제출일자: date = None):
-        self.납세자 = 납세자_obj
-        self.과세기간 = 과세기간
-        self.세무대리인 = 세무대리인_obj
-        self.작성일자 = 작성일자 or date.today()
-        self.제출일자 = 제출일자 or 작성일자 or date.today()
-        super().__init__()
-
-    @classmethod
-    def records_module(cls):
-        from opentaxkr.ers.양도소득세 import records_20230502
-        return records_20230502
-
-    def calculate(self):
-        pass
+from typing import BinaryIO
 
 
 class 양도소득_과세구분(Enum):
@@ -145,3 +100,18 @@ class 양도세율구분(Enum):
     def __init__(self, text: str, 세율: Decimal, *주식종류_list: 주식종류코드):
         self.세율 = 세율
         self.주식종류_list = 주식종류_list
+
+
+주택임대사업자_업종코드 = [701101, 701102, 701103, 701104, 701301]
+
+
+"""항상 최신 서식을 기본값으로 사용하도록 한다."""
+from .records_20230502 import *
+
+
+def detect_report_date(data: BinaryIO):
+    return datetime.strptime(
+        TI01_양도소득세과세표준신고서_HEADER.extract_field(TI01_양도소득세과세표준신고서_HEADER.fields()['작성일자'], data), 
+        '%Y%m%d').date()
+
+

@@ -12,6 +12,7 @@ dependencies = [
     "requests",
     "bs4",
     "python-dateutil",
+    "addresskr",
     "icalendar",
     "typer",
     "openpyxl",
@@ -19,7 +20,7 @@ dependencies = [
     "ipython",
     "dynaconf",
     "yapf",
-    "pycountry"
+    "pycountry",
 ]
 [project.urls]
 Home = "https://github.com/finecodekr/opentaxkr"

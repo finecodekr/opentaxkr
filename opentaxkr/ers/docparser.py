@@ -1,14 +1,75 @@
 import ast
 import codecs
+import json
 import re
 import textwrap
+from datetime import date
+from pathlib import Path
 
 from bs4 import BeautifulSoup
+from yapf.yapflib.yapf_api import FormatCode
 
+from opentaxkr.ers import REPORT_CLASS_POSTFIX
 from opentaxkr.ers.util import strip
 
 
-def parse(filename, prefix, overrides=None):
+def parse_to_classes(source, outpath, prefix, published: date):
+    doc_format = parse_document(source, prefix=prefix)
+
+    with open(outpath / f'schema_{published.strftime('%Y%m%d')}.json', 'w', encoding='utf8') as f:
+        json.dump(doc_format, f, indent=4, ensure_ascii=False)
+
+    generate_record_classes(doc_format, outpath, published)
+
+
+def generate_record_classes(doc_format, base_path: Path , published: date):
+    """
+    주어진 문서 포맷 스키마를 기반으로 대응되는 파이썬 클래스를 담은 레코드 모듈을 생성한다.
+    이미 존재하는 파일이면 레코드의 필드, 레코드의 이름만 새로 생성되고 그 외의 내용은 보존된다.
+    그러나, 빈 줄, 주석 등은 보존되지 않는다.
+    """
+    python_filename = base_path / f'records_{published.strftime('%Y%m%d')}.py'
+    report_name = base_path.name + REPORT_CLASS_POSTFIX
+
+    if Path(python_filename).exists():
+        with open(python_filename, 'r', encoding='utf8') as f:
+            module = ast.parse(f.read())
+    else:
+        module = ast.Module(body=[], type_ignores=[])
+
+    for record in doc_format['레코드']:
+        class_def = reset_class_fields(module, record['서식명'], f"""\
+            @dataclass(kw_only=True)
+            class {record['서식명']}(ERSRecord):
+                pass
+        """)
+
+        for field in reversed(record['필드']):
+            if not field['name']:
+                continue
+
+            class_def.body.insert(0, ast.AnnAssign(
+                target=ast.Name(field['name'], ast.Store()),
+                annotation=ast.Name(convert_type(field), ast.Load()),
+                value=ast.parse(field_options(field)).body[0].value,
+                simple=1
+            ))
+
+    class_def = reset_class_fields(module, report_name, f"""\
+        @dataclass(kw_only=True)
+        class {report_name}(ERSReport):
+            pass
+    """)
+    for record in reversed(doc_format['레코드']):
+        class_def.body.insert(0, ast.parse(f"{record['서식명']}: List[{record['서식명']}]").body[0])
+
+    class_def.body.insert(0, ast.parse(f"published_date: ClassVar[date] = {repr(published).replace('datetime.', '')}").body[0])
+
+    with open(python_filename, 'w', encoding='utf8') as f:
+        f.write(FormatCode(ast.unparse(module), style_config={'column_limit': 140})[0])
+
+
+def parse_document(filename, prefix, overrides=None):
     '''
         국세청에서 배포한 전자신고 파일설명서 DOCX를 MS WORD에서 웹 페이지로 저장.
         그 파일을 파싱해서 포맷 정보를 dict로 반환한다.
@@ -188,15 +249,17 @@ def field_options(field):
         default_expression = ''
 
     options = {
-        'max_length': int(field['길이']),
+        '길이': int(field['길이']),
+        '누적': int(field['누적']),
         '점검': field['점검'],
         '비고': field['비고']
     }
     if '소수점길이' in field:
-        options['decimal_places'] = int(field['소수점길이'])
+        options['소수점길이'] = int(field['소수점길이'])
 
     # TODO 점검 값으로 제한하기
     # if ',' in field['점검']:
     #     return " = Literal['" + "', '".join(field['점검'].split(',')) + "']"
 
-    return f"field({default_expression}metadata={repr(options)})"
+    options_expression = ', '.join(f"{k}={repr(v)}" for k, v in options.items())
+    return f"ERSField({default_expression}{options_expression})"

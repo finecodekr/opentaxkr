@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from datetime import date
 from enum import Enum
 
-from opentaxkr.ers.address import 도로명주소
+from addresskr import 도로명주소
 
 세무프로그램코드 = '9000'
 
