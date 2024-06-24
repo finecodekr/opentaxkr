@@ -25,7 +25,7 @@ def percent(rate, decimal_point=0):
 
 
 def strip(text):
-    return re.sub(r'\s+', ' ', text).strip().replace('· ', '·')
+    return re.sub(r'\s+', ' ', text).strip().replace('· ', '·').replace("'", '')
 
 
 pycountry_translation = gettext.translation('iso3166-1', pycountry.LOCALES_DIR, languages=['ko'])

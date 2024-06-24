@@ -14,12 +14,7 @@ from opentaxkr.ers.util import strip
 
 
 def parse_to_classes(source, outpath, prefix, published: date):
-    doc_format = parse_document(source, prefix=prefix)
-
-    with open(outpath / f'schema_{published.strftime('%Y%m%d')}.json', 'w', encoding='utf8') as f:
-        json.dump(doc_format, f, indent=4, ensure_ascii=False)
-
-    generate_record_classes(doc_format, outpath, published)
+    generate_record_classes(parse_document(source, prefix=prefix), outpath, published)
 
 
 def generate_record_classes(doc_format, base_path: Path , published: date):
@@ -27,7 +22,11 @@ def generate_record_classes(doc_format, base_path: Path , published: date):
     주어진 문서 포맷 스키마를 기반으로 대응되는 파이썬 클래스를 담은 레코드 모듈을 생성한다.
     이미 존재하는 파일이면 레코드의 필드, 레코드의 이름만 새로 생성되고 그 외의 내용은 보존된다.
     그러나, 빈 줄, 주석 등은 보존되지 않는다.
+    참고용으로 문서를 파싱한 결과를 json 포맷으로도 저장해둔다.
     """
+    with open(base_path / f'schema_{published.strftime('%Y%m%d')}.json', 'w', encoding='utf8') as f:
+        json.dump(doc_format, f, indent=4, ensure_ascii=False)
+    
     python_filename = base_path / f'records_{published.strftime('%Y%m%d')}.py'
     report_name = base_path.name + REPORT_CLASS_POSTFIX
 
@@ -163,7 +162,7 @@ def normalize_field_name(field_name):
     TODO docparser를 일일이 안 돌려봐도 되도록 테스트 케이스 작성할 것.
     """
     normalized = field_name.strip()
-    normalized = normalized.replace('\x9f', '_')
+    normalized = re.sub(r'[\x9f ]+', r'_', normalized)
     normalized = re.sub(r'\([^\(]+\([^\)]+\)[^\)]+\)', r'', normalized)
     normalized = re.sub(r'\(([0-9]+)\)', r'', normalized)
     normalized = re.sub(r'\(([^0-9\)]+)\)', r'_\1', normalized)
@@ -177,9 +176,10 @@ def normalize_field_name(field_name):
     normalized = re.sub(r"\(([^\]]+)\)", r'_\1_', normalized)
     normalized = re.sub(r"\>=([0-9]+)", r'gte\1', normalized) # 감면대상소득비율_감면대상사업소득비율>=80인_경우
     normalized = re.sub(r"\<([0-9]+)", r'lt\1', normalized) # 감면대상소득비율_감면대상사업소득비율<80인_경우
-    normalized = re.sub(r'[:–\-_\s\t,\.+·･․‧【】•∙%`「」\(\)²\&\/\*]+', r'_', normalized) # 위의 규칙들에서 처리되지 않은 괄호()는 여기서 변환
+    normalized = re.sub(r'[:–\-_\s\t,\.+·･․‧【】•∙%`「」\(\)²\&\/\*～‘’~※]+', r'_', normalized) # 위의 규칙들에서 처리되지 않은 괄호()는 여기서 변환
     normalized = re.sub(r'^[^가-힣_0-9a-zA-Z]+', '', normalized)
-    normalized = re.sub(r'_+$', '', normalized)
+    normalized = re.sub(r'_+', '_', normalized)
+    normalized = re.sub(r'_$', '', normalized)
     return normalized
 
 
@@ -195,12 +195,13 @@ def find_title(element):
 
 
 def find_previous_non_table_sibling(element):
-    previous = element.find_previous_sibling('p')
+    top_level_tags = ['p', 'ul', 'ol']
+    previous = element.find_previous_sibling()
     if not previous or previous.name == 'table':
         return None
 
     text = strip(previous.text)
-    if previous.name == 'p' and text and not re.match(r'^\(.+\)$', text):
+    if previous.name in top_level_tags and text and not re.match(r'^\(.+\)$', text):
         return previous
 
     return find_previous_non_table_sibling(previous)
@@ -226,12 +227,14 @@ def reset_class_fields(module: ast.Module, class_name: str, default_code: str):
 def convert_type(field):
     if field['점검'] == '일자형식점검' or field['name'].endswith('일자'):
         return 'date'
-    elif field['TYPE'] == 'CHAR':
+    elif field['TYPE'] in ['CHAR', 'CAHR']:
         return 'str'
     elif field['TYPE'] == 'NUMBER' and '소수점길이' in field:
         return 'Decimal'
     elif field['TYPE'] == 'NUMBER':
         return 'int'
+
+    raise ValueError(f"Unknown type: {field}")
 
 
 def field_options(field):
@@ -249,13 +252,17 @@ def field_options(field):
         default_expression = ''
 
     options = {
-        '길이': int(field['길이']),
+        '길이': None,
         '누적': int(field['누적']),
         '점검': field['점검'],
         '비고': field['비고']
     }
-    if '소수점길이' in field:
-        options['소수점길이'] = int(field['소수점길이'])
+    if '.' in field['길이']:
+        options['길이'], options['소수점길이'] = map(int, field['길이'].split('.'))
+    else:
+        options['길이'] = int(field['길이'])
+        if '소수점길이' in field:
+            options['소수점길이'] = int(field['소수점길이'])
 
     # TODO 점검 값으로 제한하기
     # if ',' in field['점검']:
