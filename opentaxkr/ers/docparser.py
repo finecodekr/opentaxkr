@@ -155,6 +155,12 @@ def parse_document(filename, prefix, overrides=None):
     return data
 
 
+def normalize_record_name(record_name):
+    for redundant in ['Record', '레코드']:
+        record_name = record_name.replace(redundant, '')
+    return normalize_field_name(record_name)
+
+
 def normalize_field_name(field_name):
     """
     서식 문서의 서식명, 필드명 등을 python, javascript에서 identifier로 쓸 수 있는 형태로 변환.

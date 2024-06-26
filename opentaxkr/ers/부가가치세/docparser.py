@@ -6,7 +6,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 from opentaxkr.ers.docparser import generate_record_classes, normalize_field_name, \
-    find_previous_non_table_sibling
+    find_previous_non_table_sibling, normalize_record_name
 from opentaxkr.ers.util import strip
 
 
@@ -69,10 +69,10 @@ def parse(filename):
                 중분류 = '43) 2019 광주 세계수영선수권대회 관련 사업자에 대한 의제매입세액공제 신고서'
 
             대분류 = 대분류.replace('.', '_')
-            중분류 = normalize_field_name(re.sub(r'(^[0-9]+)\) ?([^ ])', r'\1_\2', 중분류))
+            중분류 = normalize_field_name(re.sub(r'(^[0-9]+)\)?([^ ])', r'\1_\2', 중분류.replace(' ', '')))
             서식명 = f'V{대분류[:2]}{중분류}'
             if 소분류:
-                소분류 = normalize_field_name(소분류)
+                소분류 = normalize_record_name(소분류).replace('_', '')
                 matches = SequenceMatcher(None, 중분류, 소분류).get_matching_blocks()
                 if matches and matches[0].b == 0 and matches[0].size >= 5:
                     소분류 = 소분류[matches[0].size:]
@@ -80,9 +80,9 @@ def parse(filename):
 
             서식명 = fix_2019_change(normalize_field_name(서식명))
             서식명 = fix_currupted(normalize_field_name(서식명))
-            서식명 = normalize_field_name(서식명)
-
-
+            서식명 = normalize_record_name(서식명)
+            print(서식명)
+            
             record = {'서식명': 서식명, '필드': []}
             first, second, *unused = record['서식명'].split('_')
             record['order_key'] = int(first[1:]) * 100 + int(second)
@@ -132,12 +132,12 @@ def parse(filename):
                     field['길이'], field['소수점길이'] = field['길이'].split(',')
 
                 # '음수처리' 필드명 예외처리
-                if 서식명 == 'V3_4_신용카드매출전표등수령명세서_갑_을_기타신용_직불카드_및_기명식선불카드_매출전표_수령금액_명세_Data_Record':
+                if 서식명 == 'V3_4_신용카드매출전표등수령명세서_갑_을_기타신용직불카드및기명식선불카드매출전표수령금액명세Data':
                     if strip(tds[0].text) == '10':
                         field['name'] = "공급가액음수표시"
                     elif strip(tds[0].text) == '12':
                         field['name'] = "세액음수표시"
-                if 서식명 == 'V3_4_신용카드매출전표등수령명세서_갑_을_신용카드등_매입내용_합계_Tail_Record':
+                if 서식명 == 'V3_4_신용카드매출전표등수령명세서_갑_을_신용카드등매입내용합계Tail':
                     if strip(tds[0].text) == '8':
                         field['name'] = "총공급가액음수표시"
                     elif strip(tds[0].text) == '10':

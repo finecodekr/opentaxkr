@@ -6,7 +6,7 @@ from opentaxkr.ers import ERSRecord, ERSField, ERSReport
 
 
 @dataclass(kw_only=True)
-class v1_1_신고서_Head_레코드(ERSRecord):
+class V1_1_신고서Head(ERSRecord):
     자료구분: str = ERSField(default='11,12', 길이=2, 누적=2, 점검='11,12', 비고='Not null')
     서식코드: str = ERSField(default='I103200, I106000', 길이=7, 누적=9, 점검='I103200, I106000', 비고='Not null')
     납세자ID: str = ERSField(default=None, 길이=13, 누적=22, 점검='사업자번호 CHECK+무세적', 비고='Not null')
@@ -42,7 +42,7 @@ class v1_1_신고서_Head_레코드(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v1_2_일반과세자_신고서_레코드(ERSRecord):
+class V1_2_일반과세자신고서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I103200', 길이=7, 누적=9, 점검='I103200', 비고='Not Null')
     매출과세세금계산서발급금액: int = ERSField(default=0, 길이=15, 누적=24, 점검='정수점검', 비고='Not Null default 0')
@@ -135,7 +135,7 @@ class v1_2_일반과세자_신고서_레코드(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v1_3_간이과세자_신고서_레코드(ERSRecord):
+class V1_3_간이과세자신고서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I106000', 길이=7, 누적=9, 점검='I106000', 비고='Not Null')
     과표과세부가가치율코드_1: str = ERSField(default=None, 길이=2, 누적=11, 점검='금액이 0이 아니면 35', 비고='Null 허용')
@@ -233,7 +233,7 @@ class v1_3_간이과세자_신고서_레코드(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_3_간이과세자_신고서_레코드_사업장현황명세서(ERSRecord):
+class V2_3_간이과세자신고서_사업장현황명세서(ERSRecord):
     자료구분: str = ERSField(default='14', 길이=2, 누적=2, 점검='14', 비고='Not Null')
     서식코드: str = ERSField(default='I104400', 길이=7, 누적=9, 점검='I104400', 비고='Not Null')
     자가타가구분: str = ERSField(길이=2, 누적=11, 점검='01,02', 비고='Not Null')
@@ -261,7 +261,7 @@ class v2_3_간이과세자_신고서_레코드_사업장현황명세서(ERSRecor
 
 
 @dataclass(kw_only=True)
-class v2_3_간이과세자_신고서_레코드_신용카드매출전표_등_발행금액집계표(ERSRecord):
+class V2_3_간이과세자신고서_신용카드매출전표등발행금액집계표(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I103400', 길이=7, 누적=9, 점검='I103400', 비고='Not Null')
     전체발행금액_합계: int = ERSField(default=0, 길이=15, 누적=24, 점검='정수점검', 비고='Not Null default 0')
@@ -286,7 +286,7 @@ class v2_3_간이과세자_신고서_레코드_신용카드매출전표_등_발�
 
 
 @dataclass(kw_only=True)
-class v2_3_간이과세자_신고서_레코드_영세율첨부서류제출명세서(ERSRecord):
+class V2_3_간이과세자신고서_영세율첨부서류제출명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I105800', 길이=7, 누적=9, 점검='I105800', 비고='Not Null')
     제출사유코드: str = ERSField(길이=2, 누적=11, 점검='01,02', 비고='Not Null')
@@ -306,7 +306,7 @@ class v2_3_간이과세자_신고서_레코드_영세율첨부서류제출명세
 
 
 @dataclass(kw_only=True)
-class v2_3_간이과세자_신고서_레코드_의제매입세액공제신고서합계(ERSRecord):
+class V2_3_간이과세자신고서_의제매입세액공제신고서합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I102300', 길이=7, 누적=9, 점검='I102300', 비고='Not Null')
     거래처수_합계: int = ERSField(default=0, 길이=7, 누적=16, 점검='정수점검', 비고='Not Null default 0')
@@ -363,7 +363,7 @@ class v2_3_간이과세자_신고서_레코드_의제매입세액공제신고서
 
 
 @dataclass(kw_only=True)
-class v2_3_간이과세자_신고서_레코드_의제매입세액공제신고서명세(ERSRecord):
+class V2_3_간이과세자신고서_의제매입세액공제신고서명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I102300', 길이=7, 누적=9, 점검='I102300', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -377,7 +377,7 @@ class v2_3_간이과세자_신고서_레코드_의제매입세액공제신고서
 
 
 @dataclass(kw_only=True)
-class v2_5_재활용폐자원_및_중고자동차매입세액공제신고서_합계(ERSRecord):
+class V2_5_재활용폐자원및중고자동차매입세액공제신고서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M116300', 길이=7, 누적=9, 점검='M116300', 비고='Not Null')
     매입처수_합계: int = ERSField(default=0, 길이=7, 누적=16, 점검='양수점검', 비고='Not Null default 0')
@@ -413,7 +413,7 @@ class v2_5_재활용폐자원_및_중고자동차매입세액공제신고서_합
 
 
 @dataclass(kw_only=True)
-class v2_5_재활용폐자원_및_중고자동차매입세액공제신고서_명세(ERSRecord):
+class V2_5_재활용폐자원및중고자동차매입세액공제신고서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M116300', 길이=7, 누적=9, 점검='M116300', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -430,7 +430,7 @@ class v2_5_재활용폐자원_및_중고자동차매입세액공제신고서_명
 
 
 @dataclass(kw_only=True)
-class v2_6_일반과세전환시재고품및감가상각자산신고서(ERSRecord):
+class V2_6_일반과세전환시재고품및감가상각자산신고서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='V123', 길이=4, 누적=6, 점검='V123', 비고='Not Null')
     일반과세적용시기: date = ERSField(길이=8, 누적=14, 점검='일자형식점검', 비고='Not Null')
@@ -441,7 +441,7 @@ class v2_6_일반과세전환시재고품및감가상각자산신고서(ERSRecor
 
 
 @dataclass(kw_only=True)
-class v2_6_일반과세전환시재고품및감가상각자산신고서_명세(ERSRecord):
+class V2_6_일반과세전환시재고품및감가상각자산신고서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='V123', 길이=4, 누적=6, 점검='V123', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=12, 점검='숫자,길이점검', 비고='Not Null')
@@ -457,7 +457,7 @@ class v2_6_일반과세전환시재고품및감가상각자산신고서_명세(E
 
 
 @dataclass(kw_only=True)
-class v2_7_부동산임대공급가액명세서(ERSRecord):
+class V2_7_부동산임대공급가액명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I103600', 길이=7, 누적=9, 점검='I103600', 비고='Not Null')
     일련번호구분: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -474,7 +474,7 @@ class v2_7_부동산임대공급가액명세서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_7_부동산임대공급가액명세서_세부내용(ERSRecord):
+class V2_7_부동산임대공급가액명세서_세부내용(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I103600', 길이=7, 누적=9, 점검='I103600', 비고='Not Null')
     일련번호구분: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -498,7 +498,7 @@ class v2_7_부동산임대공급가액명세서_세부내용(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_8_간이과세전환시재고품_및_감가상각자산신고서(ERSRecord):
+class V2_8_간이과세전환시재고품및감가상각자산신고서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='V130', 길이=4, 누적=6, 점검='V130', 비고='Not Null')
     과세유형: str = ERSField(길이=1, 누적=7, 점검='2', 비고='Not Null')
@@ -509,7 +509,7 @@ class v2_8_간이과세전환시재고품_및_감가상각자산신고서(ERSRec
 
 
 @dataclass(kw_only=True)
-class v2_10_사업장별부가가치세과세표준_및_납부세액_환급세액신고명세서(ERSRecord):
+class V2_10_사업장별부가가치세과세표준및납부세액_환급세액신고명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I104500', 길이=7, 누적=9, 점검='I104500', 비고='Not Null')
     매출과세금액합계: int = ERSField(default=0, 길이=15, 누적=24, 점검='정수점검', 비고='Not Null default 0')
@@ -529,7 +529,7 @@ class v2_10_사업장별부가가치세과세표준_및_납부세액_환급세�
 
 
 @dataclass(kw_only=True)
-class v2_10_사업장별부가가치세과세표준_및_납부세액_환급세액신고명세서_세부내용(ERSRecord):
+class V2_10_사업장별부가가치세과세표준및납부세액_환급세액신고명세서_환급세액신고명세서세부내용(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I104500', 길이=7, 누적=9, 점검='I104500', 비고='Not Null')
     사업자등록번호: str = ERSField(길이=10, 누적=19, 점검='사업자번호CHECK DIGIT +무세적', 비고='Not Null')
@@ -551,7 +551,7 @@ class v2_10_사업장별부가가치세과세표준_및_납부세액_환급세�
 
 
 @dataclass(kw_only=True)
-class v2_11_건물등_감가상각자산_취득명세서(ERSRecord):
+class V2_11_건물등감가상각자산취득명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I103800', 길이=7, 누적=9, 점검='I103800', 비고='Not Null')
     건수_합계_고정자산: int = ERSField(default=0, 길이=11, 누적=20, 점검='양수점검', 비고='Not Null default 0')
@@ -573,7 +573,7 @@ class v2_11_건물등_감가상각자산_취득명세서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_12_공제받지못할매입세액명세서_합계(ERSRecord):
+class V2_12_공제받지못할매입세액명세서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I103300', 길이=7, 누적=9, 점검='I103300', 비고='Not Null')
     매수합계_세금계산서: int = ERSField(default=0, 길이=11, 누적=20, 점검='양수점검', 비고='Not Null default 0')
@@ -590,7 +590,7 @@ class v2_12_공제받지못할매입세액명세서_합계(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_12_공제받지못할매입세액명세서_합계_명세(ERSRecord):
+class V2_12_공제받지못할매입세액명세서_합계_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I103300', 길이=7, 누적=9, 점검='I103300', 비고='Not Null')
     불공제사유구분: str = ERSField(길이=2, 누적=11, 점검='01,02,03,04,05,06,07', 비고='Not Null')
@@ -601,7 +601,7 @@ class v2_12_공제받지못할매입세액명세서_합계_명세(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_12_공제받지못할매입세액명세서_합계_공통매입세액안분계산내역(ERSRecord):
+class V2_12_공제받지못할매입세액명세서_합계_공통매입세액안분계산내역(ERSRecord):
     자료구분: str = ERSField(default='19', 길이=2, 누적=2, 점검='19', 비고='Not Null')
     서식코드: str = ERSField(default='I103300', 길이=7, 누적=9, 점검='I103300', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -614,7 +614,7 @@ class v2_12_공제받지못할매입세액명세서_합계_공통매입세액안
 
 
 @dataclass(kw_only=True)
-class v2_12_공제받지못할매입세액명세서_합계_공통매입세액정산내역(ERSRecord):
+class V2_12_공제받지못할매입세액명세서_합계_공통매입세액정산내역(ERSRecord):
     자료구분: str = ERSField(default='20', 길이=2, 누적=2, 점검='20', 비고='Not Null')
     서식코드: str = ERSField(default='I103300', 길이=7, 누적=9, 점검='I103300', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -627,7 +627,7 @@ class v2_12_공제받지못할매입세액명세서_합계_공통매입세액정
 
 
 @dataclass(kw_only=True)
-class v2_12_공제받지못할매입세액명세서_합계_납부세액환급세액재계산내역(ERSRecord):
+class V2_12_공제받지못할매입세액명세서_합계_납부세액환급세액재계산내역(ERSRecord):
     자료구분: str = ERSField(default='21', 길이=2, 누적=2, 점검='21', 비고='Not Null')
     서식코드: str = ERSField(default='I103300', 길이=7, 누적=9, 점검='I103300', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -639,7 +639,7 @@ class v2_12_공제받지못할매입세액명세서_합계_납부세액환급세
 
 
 @dataclass(kw_only=True)
-class v2_13_전자화폐결제명세서(ERSRecord):
+class V2_13_전자화폐결제명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I103500', 길이=7, 누적=9, 점검='I103500', 비고='Not Null')
     전자결제합계금액: int = ERSField(default=0, 길이=15, 누적=24, 점검='정수점검', 비고='Not Null default 0')
@@ -647,7 +647,7 @@ class v2_13_전자화폐결제명세서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_13_전자화폐결제명세서_세부내용(ERSRecord):
+class V2_13_전자화폐결제명세서_세부내용(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I103500', 길이=7, 누적=9, 점검='I103500', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -662,7 +662,7 @@ class v2_13_전자화폐결제명세서_세부내용(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_14_면세유류공급명세서(ERSRecord):
+class V2_14_면세유류공급명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='J400100', 길이=7, 누적=9, 점검='J400100', 비고='Not Null')
     공급기간_시작일자: date = ERSField(길이=8, 누적=17, 점검='일자형식점검', 비고='Not Null')
@@ -683,7 +683,7 @@ class v2_14_면세유류공급명세서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_14_면세유류공급명세서_세부내용(ERSRecord):
+class V2_14_면세유류공급명세서_세부내용(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='J400100', 길이=7, 누적=9, 점검='J400100', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -705,7 +705,7 @@ class v2_14_면세유류공급명세서_세부내용(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_15_월별판매액합계표_농_축산_임_어업기자재_및_장애인보장구(ERSRecord):
+class V2_15_월별판매액합계표_농_축산_임_어업기자재및장애인보장구(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M200100', 길이=7, 누적=9, 점검='M200100', 비고='Not Null')
     월별: str = ERSField(길이=6, 누적=15, 점검='년월', 비고='Not Null')
@@ -718,7 +718,7 @@ class v2_15_월별판매액합계표_농_축산_임_어업기자재_및_장애�
 
 
 @dataclass(kw_only=True)
-class v2_16_매입자발행세금계산서합계표_갑_합계(ERSRecord):
+class V2_16_매입자발행세금계산서합계표_갑_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M118000', 길이=7, 누적=9, 점검='M118000', 비고='Not Null')
     매입처수: int = ERSField(default=0, 길이=7, 누적=16, 점검='양수점검', 비고='Not Null default 0')
@@ -729,7 +729,7 @@ class v2_16_매입자발행세금계산서합계표_갑_합계(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_16_매입자발행세금계산서합계표_갑_세부내용(ERSRecord):
+class V2_16_매입자발행세금계산서합계표_갑_세부내용(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M118000', 길이=7, 누적=9, 점검='M118000', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -742,7 +742,7 @@ class v2_16_매입자발행세금계산서합계표_갑_세부내용(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_17_과세사업전환감가상각자산신고서_감가상각자산신고서면세사업자인적사항(ERSRecord):
+class V2_17_과세사업전환감가상각자산신고서_면세사업자인적사항(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I102600', 길이=7, 누적=9, 점검='I102600', 비고='Not Null')
     과세사업사용_소비시기: date = ERSField(길이=8, 누적=17, 점검='일자형식점검', 비고='Not Null')
@@ -754,7 +754,7 @@ class v2_17_과세사업전환감가상각자산신고서_감가상각자산신�
 
 
 @dataclass(kw_only=True)
-class v2_17_과세사업전환감가상각자산신고서_감가상각자산신고서감가상각자산신고서(ERSRecord):
+class V2_17_과세사업전환감가상각자산신고서_감가상각자산신고서(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I102600', 길이=7, 누적=9, 점검='I102600', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -768,7 +768,7 @@ class v2_17_과세사업전환감가상각자산신고서_감가상각자산신�
 
 
 @dataclass(kw_only=True)
-class v2_18_건물관리명세서(ERSRecord):
+class V2_18_건물관리명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I104300', 길이=7, 누적=9, 점검='I104300', 비고='Not Null')
     일련번호구분: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -796,7 +796,7 @@ class v2_18_건물관리명세서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_18_건물관리명세서_세부내용(ERSRecord):
+class V2_18_건물관리명세서_세부내용(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I104300', 길이=7, 누적=9, 점검='I104300', 비고='Not Null')
     일련번호구분: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -815,7 +815,7 @@ class v2_18_건물관리명세서_세부내용(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_19_사업자단위과세의_사업장별부가가치세과세표준및납부세액_환급세액신고명세서_합계(ERSRecord):
+class V2_19_사업자단위과세의사업장별부가가치세과세표준및납부세액_환급세액신고명세서_환급세액신고명세서합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I103900', 길이=7, 누적=9, 점검='I103900', 비고='Not Null')
     사업자단위과세승인번호: str = ERSField(default=None, 길이=7, 누적=16, 점검='공백', 비고='')
@@ -837,7 +837,7 @@ class v2_19_사업자단위과세의_사업장별부가가치세과세표준및�
 
 
 @dataclass(kw_only=True)
-class v2_19_사업자단위과세의_사업장별부가가치세과세표준및납부세액_환급세액신고명세서_명세(ERSRecord):
+class V2_19_사업자단위과세의사업장별부가가치세과세표준및납부세액_환급세액신고명세서_환급세액신고명세서명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I103900', 길이=7, 누적=9, 점검='I103900', 비고='Not Null')
     단위사업장적용번호: int = ERSField(길이=4, 누적=13, 점검='숫자,길이점검', 비고='Not Null')
@@ -862,7 +862,7 @@ class v2_19_사업자단위과세의_사업장별부가가치세과세표준및�
 
 
 @dataclass(kw_only=True)
-class v2_20_현금매출명세서(ERSRecord):
+class V2_20_현금매출명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I103700', 길이=7, 누적=9, 점검='I103700', 비고='Not Null')
     현금매출사업자구분: str = ERSField(default=None, 길이=2, 누적=11, 점검='사용않함', 비고='space')
@@ -882,7 +882,7 @@ class v2_20_현금매출명세서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_20_현금매출명세서_세부내용(ERSRecord):
+class V2_20_현금매출명세서_세부내용(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I103700', 길이=7, 누적=9, 점검='I103700', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -896,7 +896,7 @@ class v2_20_현금매출명세서_세부내용(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_21_고금_의제매입세액_공제_신고서_고금의제매입세액공제신고서(ERSRecord):
+class V2_21_고금의제매입세액공제신고서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M120900', 길이=7, 누적=9, 점검='M120900', 비고='Not Null')
     품목수: int = ERSField(default=0, 길이=11, 누적=20, 점검='양수점검', 비고='Not Null default 0')
@@ -925,7 +925,7 @@ class v2_21_고금_의제매입세액_공제_신고서_고금의제매입세액�
 
 
 @dataclass(kw_only=True)
-class v2_21_고금_의제매입세액_공제_신고서_고금_매입_매출_명세서세부내용(ERSRecord):
+class V2_21_고금의제매입세액공제신고서_고금매입매출명세서세부내용(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M120900', 길이=7, 누적=9, 점검='M120900', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='', 비고='Not Null')
@@ -944,7 +944,7 @@ class v2_21_고금_의제매입세액_공제_신고서_고금_매입_매출_명�
 
 
 @dataclass(kw_only=True)
-class v2_22_과세표준및세액의_결정_경정청구서(ERSRecord):
+class V2_22_과세표준및세액의결정_경정청구서_경정청구서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='A102700', 길이=7, 누적=9, 점검='A102700', 비고='Not Null')
     법정신고일: date = ERSField(길이=8, 누적=17, 점검='일자형식점검', 비고='Not Null')
@@ -970,7 +970,7 @@ class v2_22_과세표준및세액의_결정_경정청구서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_23_과세표준수정신고서_및_추가자진납부계산서(ERSRecord):
+class V2_23_과세표준수정신고서및추가자진납부계산서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='A102600', 길이=7, 누적=9, 점검='A102600', 비고='Not Null')
     법정신고일: date = ERSField(길이=8, 누적=17, 점검='일자형식점검', 비고='Not Null')
@@ -1002,7 +1002,7 @@ class v2_23_과세표준수정신고서_및_추가자진납부계산서(ERSRecor
 
 
 @dataclass(kw_only=True)
-class v2_24_전자세금계산서_발급세액공제신고서(ERSRecord):
+class V2_24_전자세금계산서발급세액공제신고서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I103100', 길이=7, 누적=9, 점검='I103100', 비고='Not Null')
     전자세금계산서발급건수: int = ERSField(default=0, 길이=7, 누적=16, 점검='양수점검', 비고='Not Null default 0')
@@ -1015,7 +1015,7 @@ class v2_24_전자세금계산서_발급세액공제신고서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_25_일반_간이과세전환시재고품등신고서(ERSRecord):
+class V2_25_일반_간이과세전환시재고품등신고서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I102700', 길이=7, 누적=9, 점검='I102700', 비고='Not Null')
     과세유형: str = ERSField(길이=2, 누적=11, 점검='04, 05', 비고='Not Null')
@@ -1028,7 +1028,7 @@ class v2_25_일반_간이과세전환시재고품등신고서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_25_일반_간이과세전환시재고품등신고서_명세(ERSRecord):
+class V2_25_일반_간이과세전환시재고품등신고서_일반간이과세전환시재고품등신고서명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I102700', 길이=7, 누적=9, 점검='I102700', 비고='Not Null')
     과세유형: str = ERSField(길이=2, 누적=11, 점검='04, 05', 비고='Not Null')
@@ -1045,7 +1045,7 @@ class v2_25_일반_간이과세전환시재고품등신고서_명세(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_26_세액공제신청서(ERSRecord):
+class V2_26_세액공제신청서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M100100', 길이=7, 누적=9, 점검='M100100', 비고='Not Null')
     코드: str = ERSField(길이=3, 누적=12, 점검='312', 비고='Not Null')
@@ -1056,7 +1056,7 @@ class v2_26_세액공제신청서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_26_세액공제신청서_내국신용장_구매확인서전자발급명세서합계(ERSRecord):
+class V2_26_세액공제신청서_내국신용장구매확인서전자발급명세서합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I105600', 길이=7, 누적=9, 점검='I105600', 비고='Not Null')
     건수_합계: int = ERSField(default=0, 길이=7, 누적=16, 점검='정수점검', 비고='Not Null default 0')
@@ -1069,7 +1069,7 @@ class v2_26_세액공제신청서_내국신용장_구매확인서전자발급명
 
 
 @dataclass(kw_only=True)
-class v2_26_세액공제신청서_내국신용장_구매확인서전자발급명세서_명세(ERSRecord):
+class V2_26_세액공제신청서_내국신용장구매확인서전자발급명세서명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I105600', 길이=7, 누적=9, 점검='I105600', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1082,7 +1082,7 @@ class v2_26_세액공제신청서_내국신용장_구매확인서전자발급명
 
 
 @dataclass(kw_only=True)
-class v2_28_원산지확인서발급세액공제신고서_발급세액공제신고서합계(ERSRecord):
+class V2_28_원산지확인서발급세액공제신고서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M115900', 길이=7, 누적=9, 점검='M115900', 비고='Not Null')
     원산지확인서발급건수: int = ERSField(default=0, 길이=7, 누적=16, 점검='양수점검', 비고='Not Null default 0')
@@ -1094,7 +1094,7 @@ class v2_28_원산지확인서발급세액공제신고서_발급세액공제신�
 
 
 @dataclass(kw_only=True)
-class v2_28_원산지확인서발급세액공제신고서_발급세액공제신고서명세(ERSRecord):
+class V2_28_원산지확인서발급세액공제신고서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M115900', 길이=7, 누적=9, 점검='M115900', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1111,7 +1111,7 @@ class v2_28_원산지확인서발급세액공제신고서_발급세액공제신�
 
 
 @dataclass(kw_only=True)
-class v2_29_동물진료용역매출명세서(ERSRecord):
+class V2_29_동물진료용역매출명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I104100', 길이=7, 누적=9, 점검='I104100', 비고='Not Null')
     면세사유구분: str = ERSField(길이=2, 누적=11, 점검='01,02,03,04,05', 비고='Not Null')
@@ -1121,7 +1121,7 @@ class v2_29_동물진료용역매출명세서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_30_영세율매출명세서(ERSRecord):
+class V2_30_영세율매출명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I104000', 길이=7, 누적=9, 점검='I104000', 비고='Not Null')
     직접수출: int = ERSField(default=0, 길이=15, 누적=24, 점검='정수점검', 비고='Not Null default 0')
@@ -1156,7 +1156,7 @@ class v2_30_영세율매출명세서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_31_외국인관광객_면세물품_판매_및_환급실적명세서_합계(ERSRecord):
+class V2_31_외국인관광객면세물품판매및환급실적명세서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M202300', 길이=7, 누적=9, 점검='M202300', 비고='Not Null')
     종사업자일련번호: str = ERSField(길이=4, 누적=13, 점검='숫자,길이점검', 비고='Not Null')
@@ -1171,7 +1171,7 @@ class v2_31_외국인관광객_면세물품_판매_및_환급실적명세서_합
 
 
 @dataclass(kw_only=True)
-class v2_31_외국인관광객_면세물품_판매_및_환급실적명세서_명세(ERSRecord):
+class V2_31_외국인관광객면세물품판매및환급실적명세서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M202300', 길이=7, 누적=9, 점검='M202300', 비고='Not Null')
     종사업자일련번호: str = ERSField(길이=4, 누적=13, 점검='숫자,길이점검', 비고='Not Null')
@@ -1191,7 +1191,7 @@ class v2_31_외국인관광객_면세물품_판매_및_환급실적명세서_명
 
 
 @dataclass(kw_only=True)
-class v2_32_구리스크랩등_매입세액공제신고서_합계(ERSRecord):
+class V2_32_구리스크랩등매입세액공제신고서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M125200', 길이=7, 누적=9, 점검='M125200', 비고='Not Null')
     매입처수_합계: int = ERSField(default=0, 길이=7, 누적=16, 점검='양수점검', 비고='Not Null default 0')
@@ -1213,7 +1213,7 @@ class v2_32_구리스크랩등_매입세액공제신고서_합계(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_32_구리스크랩등_매입세액공제신고서_명세(ERSRecord):
+class V2_32_구리스크랩등매입세액공제신고서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M125200', 길이=7, 누적=9, 점검='M125200', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1228,7 +1228,7 @@ class v2_32_구리스크랩등_매입세액공제신고서_명세(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_33_관세환급금등_명세서(ERSRecord):
+class V2_33_관세환급금등명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I401500', 길이=7, 누적=9, 점검='I401500', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1241,7 +1241,7 @@ class v2_33_관세환급금등_명세서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_34_외국인물품_외교관면세판매기록표_판매_외교관면세판매기록표(ERSRecord):
+class V2_34_외국인물품_외교관면세판매기록표_판매외교관면세판매기록표(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I402000', 길이=7, 누적=9, 점검='I402000', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1258,7 +1258,7 @@ class v2_34_외국인물품_외교관면세판매기록표_판매_외교관면�
 
 
 @dataclass(kw_only=True)
-class v2_35_공급가액확정명세서(ERSRecord):
+class V2_35_공급가액확정명세서(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I401700', 길이=7, 누적=9, 점검='I401700', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1275,7 +1275,7 @@ class v2_35_공급가액확정명세서(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_36_선박에_의한_운송용역_공급가액일람표_합계(ERSRecord):
+class V2_36_선박에의한운송용역공급가액일람표_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I401600', 길이=7, 누적=9, 점검='I401600', 비고='Not Null')
     소계_국내수입분: int = ERSField(default=0, 길이=13, 누적=22, 점검='정수점검', 비고='Not Null default 0')
@@ -1287,7 +1287,7 @@ class v2_36_선박에_의한_운송용역_공급가액일람표_합계(ERSRecord
 
 
 @dataclass(kw_only=True)
-class v2_36_선박에_의한_운송용역_공급가액일람표_명세(ERSRecord):
+class V2_36_선박에의한운송용역공급가액일람표_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I401600', 길이=7, 누적=9, 점검='I401600', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1303,7 +1303,7 @@ class v2_36_선박에_의한_운송용역_공급가액일람표_명세(ERSRecord
 
 
 @dataclass(kw_only=True)
-class v2_37_외항_선박등에_제공한_재화용역일람표_합계(ERSRecord):
+class V2_37_외항_선박등에제공한재화용역일람표_외항선박등에제공한재화용역일람표합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I401800', 길이=7, 누적=9, 점검='I401800', 비고='Not Null')
     선_기적완료증명서제출분금액_원화: int = ERSField(default=0, 길이=13, 누적=22, 점검='정수점검', 비고='Not Null default 0')
@@ -1314,7 +1314,7 @@ class v2_37_외항_선박등에_제공한_재화용역일람표_합계(ERSRecord
 
 
 @dataclass(kw_only=True)
-class v2_37_외항_선박등에_제공한_재화용역일람표_명세(ERSRecord):
+class V2_37_외항_선박등에제공한재화용역일람표_외항선박등에제공한재화용역일람표명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I401800', 길이=7, 누적=9, 점검='I401800', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1326,7 +1326,7 @@ class v2_37_외항_선박등에_제공한_재화용역일람표_명세(ERSRecord
 
 
 @dataclass(kw_only=True)
-class v2_38_외화획득명세서_합계(ERSRecord):
+class V2_38_외화획득명세서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I402100', 길이=7, 누적=9, 점검='I402100', 비고='Not Null')
     영세율적용근거: str = ERSField(default=None, 길이=30, 누적=39, 점검='', 비고='Null 혀용')
@@ -1337,7 +1337,7 @@ class v2_38_외화획득명세서_합계(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_38_외화획득명세서_명세(ERSRecord):
+class V2_38_외화획득명세서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I402100', 길이=7, 누적=9, 점검='I402100', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1352,7 +1352,7 @@ class v2_38_외화획득명세서_명세(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_39_재화_용역공급기록표(ERSRecord):
+class V2_39_재화_용역공급기록표(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I401900', 길이=7, 누적=9, 점검='I401900', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1365,7 +1365,7 @@ class v2_39_재화_용역공급기록표(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_40_사업양도신고서_합계(ERSRecord):
+class V2_40_사업양도신고서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I104200', 길이=7, 누적=9, 점검='I104200', 비고='Not Null')
     양수자사업자등록번호: str = ERSField(길이=10, 누적=19, 점검='무세적체크', 비고='Not Null')
@@ -1375,7 +1375,7 @@ class v2_40_사업양도신고서_합계(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_40_사업양도신고서_명세(ERSRecord):
+class V2_40_사업양도신고서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I104200', 길이=7, 누적=9, 점검='I104200', 비고='Not Null')
     사업양도내용구분: str = ERSField(길이=2, 누적=11, 점검='01, 02, 03, 04', 비고='Not Null')
@@ -1386,7 +1386,7 @@ class v2_40_사업양도신고서_명세(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v2_41_외국인관광객_즉시환급_물품_판매_실적명세서_합계(ERSRecord):
+class V2_41_외국인관광객즉시환급물품판매실적명세서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='I106900', 길이=7, 누적=9, 점검='I106900', 비고='Not Null')
     종사업자일련번호: str = ERSField(길이=4, 누적=13, 점검='숫자,길이점검', 비고='Not Null')
@@ -1400,7 +1400,7 @@ class v2_41_외국인관광객_즉시환급_물품_판매_실적명세서_합계
 
 
 @dataclass(kw_only=True)
-class v2_41_외국인관광객_즉시환급_물품_판매_실적명세서_명세(ERSRecord):
+class V2_41_외국인관광객즉시환급물품판매실적명세서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='I106900', 길이=7, 누적=9, 점검='I106900', 비고='Not Null')
     종사업자일련번호: str = ERSField(길이=4, 누적=13, 점검='숫자,길이점검', 비고='Not Null')
@@ -1417,7 +1417,7 @@ class v2_41_외국인관광객_즉시환급_물품_판매_실적명세서_명세
 
 
 @dataclass(kw_only=True)
-class v2_42_평창동계올림픽_관련_사업자에_대한_의제매입세액공제_신고서_합계(ERSRecord):
+class V2_42_평창동계올림픽관련사업자에대한의제매입세액공제신고서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M127200', 길이=7, 누적=9, 점검='M127200', 비고='Not Null')
     매입건수_합계: int = ERSField(default=0, 길이=7, 누적=16, 점검='정수점검', 비고='Not Null default 0')
@@ -1431,7 +1431,7 @@ class v2_42_평창동계올림픽_관련_사업자에_대한_의제매입세액�
 
 
 @dataclass(kw_only=True)
-class v2_42_평창동계올림픽_관련_사업자에_대한_의제매입세액공제_신고서_명세(ERSRecord):
+class V2_42_평창동계올림픽관련사업자에대한의제매입세액공제신고서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M127200', 길이=7, 누적=9, 점검='M127200', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1441,7 +1441,7 @@ class v2_42_평창동계올림픽_관련_사업자에_대한_의제매입세액�
 
 
 @dataclass(kw_only=True)
-class v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_의제매입세액공제_신고서_합계(ERSRecord):
+class V2_43_2019광주세계수영선수권대회관련사업자에대한의제매입세액공제신고서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M127300', 길이=7, 누적=9, 점검='M127300', 비고='Not Null')
     매입건수_합계: int = ERSField(default=0, 길이=7, 누적=16, 점검='정수점검', 비고='Not Null default 0')
@@ -1455,7 +1455,7 @@ class v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_�
 
 
 @dataclass(kw_only=True)
-class v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_의제매입세액공제_신고서_명세(ERSRecord):
+class V2_43_2019광주세계수영선수권대회관련사업자에대한의제매입세액공제신고서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M127300', 길이=7, 누적=9, 점검='M127300', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1465,7 +1465,7 @@ class v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_�
 
 
 @dataclass(kw_only=True)
-class v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_의제매입세액공제_신고서_입국경로에_설치된_보세판매장_공급실적명세서_명세(ERSRecord):
+class V2_43_2019광주세계수영선수권대회관련사업자에대한의제매입세액공제신고서_입국경로에설치된보세판매장공급실적명세서명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M128600', 길이=7, 누적=9, 점검='M128600', 비고='Not Null')
     일련번호: str = ERSField(길이=6, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1477,7 +1477,7 @@ class v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_�
 
 
 @dataclass(kw_only=True)
-class v2_45_소규모_개인사업자_부가가치세_감면신청서_신청서_합계(ERSRecord):
+class V2_45_소규모개인사업자부가가치세감면신청서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M129200', 길이=7, 누적=9, 점검='M129200', 비고='Not Null')
     납부세액_예정분: int = ERSField(default=0, 길이=13, 누적=22, 점검='정수점검', 비고='Not Null default 0')
@@ -1492,7 +1492,7 @@ class v2_45_소규모_개인사업자_부가가치세_감면신청서_신청서_
 
 
 @dataclass(kw_only=True)
-class v2_45_소규모_개인사업자_부가가치세_감면신청서_신청서_명세(ERSRecord):
+class V2_45_소규모개인사업자부가가치세감면신청서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M129200', 길이=7, 누적=9, 점검='M129200', 비고='Not Null')
     업종코드: str = ERSField(길이=6, 누적=15, 점검='업종코드CHECK', 비고='Not Null')
@@ -1507,7 +1507,7 @@ class v2_45_소규모_개인사업자_부가가치세_감면신청서_신청서_
 
 
 @dataclass(kw_only=True)
-class v2_46_외국인관광객_숙박용역_환급실적명세서_합계(ERSRecord):
+class V2_46_외국인관광객숙박용역환급실적명세서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M129400', 길이=7, 누적=9, 점검='M129400', 비고='Not Null')
     종사업자일련번호: str = ERSField(길이=4, 누적=13, 점검='숫자,길이점검', 비고='Not Null')
@@ -1521,7 +1521,7 @@ class v2_46_외국인관광객_숙박용역_환급실적명세서_합계(ERSReco
 
 
 @dataclass(kw_only=True)
-class v2_46_외국인관광객_숙박용역_환급실적명세서_명세(ERSRecord):
+class V2_46_외국인관광객숙박용역환급실적명세서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M129400', 길이=7, 누적=9, 점검='M129400', 비고='Not Null')
     종사업자일련번호: str = ERSField(길이=4, 누적=13, 점검='숫자,길이점검', 비고='Not Null')
@@ -1540,7 +1540,7 @@ class v2_46_외국인관광객_숙박용역_환급실적명세서_명세(ERSReco
 
 
 @dataclass(kw_only=True)
-class v2_47_외국인관광객_미용성형_의료용역_환급실적명세서_합계(ERSRecord):
+class V2_47_외국인관광객미용성형의료용역환급실적명세서_합계(ERSRecord):
     자료구분: str = ERSField(default='17', 길이=2, 누적=2, 점검='17', 비고='Not Null')
     서식코드: str = ERSField(default='M129300', 길이=7, 누적=9, 점검='M129300', 비고='Not Null')
     종사업자일련번호: str = ERSField(길이=4, 누적=13, 점검='숫자,길이점검', 비고='Not Null')
@@ -1554,7 +1554,7 @@ class v2_47_외국인관광객_미용성형_의료용역_환급실적명세서_�
 
 
 @dataclass(kw_only=True)
-class v2_47_외국인관광객_미용성형_의료용역_환급실적명세서_명세(ERSRecord):
+class V2_47_외국인관광객미용성형의료용역환급실적명세서_명세(ERSRecord):
     자료구분: str = ERSField(default='18', 길이=2, 누적=2, 점검='18', 비고='Not Null')
     서식코드: str = ERSField(default='M129300', 길이=7, 누적=9, 점검='M129300', 비고='Not Null')
     종사업자일련번호: str = ERSField(길이=4, 누적=13, 점검='숫자,길이점검', 비고='Not Null')
@@ -1573,7 +1573,7 @@ class v2_47_외국인관광객_미용성형_의료용역_환급실적명세서_�
 
 
 @dataclass(kw_only=True)
-class v3_1_세금계산서합계표_표지_Head_Record(ERSRecord):
+class V3_1_세금계산서합계표_표지Head(ERSRecord):
     자료구분: str = ERSField(default='7', 길이=1, 누적=1, 점검='7', 비고='Not Null')
     보고자등록번호: int = ERSField(길이=10, 누적=11, 점검='사업자번호 CHECK DIGIT +무세적', 비고='Not Null')
     보고자상호: str = ERSField(길이=30, 누적=41, 점검='', 비고='Not Null')
@@ -1587,7 +1587,7 @@ class v3_1_세금계산서합계표_표지_Head_Record(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v3_1_세금계산서합계표_지연전송한_전자세금계산서를_여기에_적습니다(ERSRecord):
+class V3_1_세금계산서합계표_지연전송한전자세금계산서를여기에적습니다(ERSRecord):
     자료구분: str = ERSField(default='3', 길이=1, 누적=1, 점검='3', 비고='Not Null')
     보고자등록번호: int = ERSField(default=None, 길이=10, 누적=11, 점검='사업자번호 CHECK DIGIT+무세적', 비고='Null 허용')
     합계분_거래처수: int = ERSField(default=0, 길이=7, 누적=18, 점검='양수점검', 비고='Not Null default 0')
@@ -1606,7 +1606,7 @@ class v3_1_세금계산서합계표_지연전송한_전자세금계산서를_여
 
 
 @dataclass(kw_only=True)
-class v3_1_세금계산서합계표_전자세금계산서분_매출합계_Total_Record(ERSRecord):
+class V3_1_세금계산서합계표_전자세금계산서분매출합계Total(ERSRecord):
     자료구분: str = ERSField(default='5', 길이=1, 누적=1, 점검='5', 비고='Not Null')
     보고자등록번호: int = ERSField(default=None, 길이=10, 누적=11, 점검='사업자번호 CHECK DIGIT+무세적', 비고='Null 허용')
     합계분_거래처수: int = ERSField(default=0, 길이=7, 누적=18, 점검='양수점검', 비고='Not Null default 0')
@@ -1625,7 +1625,7 @@ class v3_1_세금계산서합계표_전자세금계산서분_매출합계_Total_
 
 
 @dataclass(kw_only=True)
-class v3_1_세금계산서합계표_14_세액_전자세금계산서분_주민등록번호_발행분의_세액의_합계를_수록함_음수인_경우_멀티키_Multi_Key_사용_116_페이지_참고(ERSRecord):
+class V3_1_세금계산서합계표_14세액전자세금계산서분주민등록번호발행분의세액의합계를수록함음수인경우멀티키MultiKey사용116페이지참고(ERSRecord):
     자료구분: str = ERSField(default='2', 길이=1, 누적=1, 점검='2', 비고='Not Null')
     보고자등록번호: int = ERSField(default=None, 길이=10, 누적=11, 점검='사업자번호 CHECK DIGIT+무세적', 비고='Null 허용')
     일련번호: int = ERSField(길이=4, 누적=15, 점검='숫자,길이점검', 비고='Not Null')
@@ -1645,7 +1645,7 @@ class v3_1_세금계산서합계표_14_세액_전자세금계산서분_주민등
 
 
 @dataclass(kw_only=True)
-class v3_1_세금계산서합계표(ERSRecord):
+class V3_1_세금계산서합계표(ERSRecord):
     자료구분: str = ERSField(default='4', 길이=1, 누적=1, 점검='4', 비고='Not Null')
     보고자등록번호: int = ERSField(default=None, 길이=10, 누적=11, 점검='사업자번호 CHECK DIGIT+무세적', 비고='Null 허용')
     합계분_거래처수: int = ERSField(default=0, 길이=7, 누적=18, 점검='양수점검', 비고='Not Null default 0')
@@ -1664,7 +1664,7 @@ class v3_1_세금계산서합계표(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v3_1_세금계산서합계표_전자세금계산서분_매입합계_Total_Record(ERSRecord):
+class V3_1_세금계산서합계표_전자세금계산서분매입합계Total(ERSRecord):
     자료구분: str = ERSField(default='6', 길이=1, 누적=1, 점검='6', 비고='Not Null')
     보고자등록번호: int = ERSField(default=None, 길이=10, 누적=11, 점검='사업자번호 CHECK DIGIT+무세적', 비고='Null 허용')
     합계분_거래처수: int = ERSField(default=0, 길이=7, 누적=18, 점검='양수점검', 비고='Not Null default 0')
@@ -1683,7 +1683,7 @@ class v3_1_세금계산서합계표_전자세금계산서분_매입합계_Total_
 
 
 @dataclass(kw_only=True)
-class v3_2_계산서합계표_제출자_대리인레코드(ERSRecord):
+class V3_2_계산서합계표_제출자대리인(ERSRecord):
     레코드구분: str = ERSField(default='A', 길이=1, 누적=1, 점검='A', 비고='Not Null')
     세무서: str = ERSField(default=None, 길이=3, 누적=4, 점검='길이점검', 비고='Null 허용')
     제출년월일: date = ERSField(길이=8, 누적=12, 점검='일자형식점검', 비고='Not Null')
@@ -1702,7 +1702,7 @@ class v3_2_계산서합계표_제출자_대리인레코드(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v3_2_계산서합계표_제출의무자인적사항레코드(ERSRecord):
+class V3_2_계산서합계표_제출의무자인적사항(ERSRecord):
     레코드구분: str = ERSField(default='B', 길이=1, 누적=1, 점검='B', 비고='Not Null')
     세무서: str = ERSField(default=None, 길이=3, 누적=4, 점검='길이점검', 비고='Null 허용')
     일련번호: int = ERSField(길이=6, 누적=10, 점검='숫자,길이점검', 비고='Not Null')
@@ -1715,7 +1715,7 @@ class v3_2_계산서합계표_제출의무자인적사항레코드(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v3_2_계산서합계표_제출의무자별집계레코드_매출(ERSRecord):
+class V3_2_계산서합계표_제출의무자별집계매출(ERSRecord):
     레코드구분: str = ERSField(default='C', 길이=1, 누적=1, 점검='C', 비고='Not Null')
     자료구분: int = ERSField(default='17', 길이=2, 누적=3, 점검='17', 비고='Not Null')
     기구분: str = ERSField(길이=1, 누적=4, 점검='1,2', 비고='Not Null')
@@ -1743,7 +1743,7 @@ class v3_2_계산서합계표_제출의무자별집계레코드_매출(ERSRecord
 
 
 @dataclass(kw_only=True)
-class v3_2_계산서합계표_지연전송한_전자계산서를_여기에_적습니다(ERSRecord):
+class V3_2_계산서합계표_지연전송한전자계산서를여기에적습니다(ERSRecord):
     레코드구분: str = ERSField(default='D', 길이=1, 누적=1, 점검='D', 비고='Not Null')
     자료구분: int = ERSField(default='18', 길이=2, 누적=3, 점검='18', 비고='Not Null')
     기구분: str = ERSField(길이=1, 누적=4, 점검='1,2', 비고='Not Null')
@@ -1760,7 +1760,7 @@ class v3_2_계산서합계표_지연전송한_전자계산서를_여기에_적�
 
 
 @dataclass(kw_only=True)
-class v3_2_계산서합계표_전자계산서_매출집계레코드_매출(ERSRecord):
+class V3_2_계산서합계표_전자계산서매출집계매출(ERSRecord):
     레코드구분: str = ERSField(default='E', 길이=1, 누적=1, 점검='E', 비고='Not Null')
     자료구분: int = ERSField(default='17', 길이=2, 누적=3, 점검='17', 비고='Not Null')
     기구분: str = ERSField(길이=1, 누적=4, 점검='1,2', 비고='Not Null')
@@ -1788,7 +1788,7 @@ class v3_2_계산서합계표_전자계산서_매출집계레코드_매출(ERSRe
 
 
 @dataclass(kw_only=True)
-class v3_2_계산서합계표_제출자_대리인레코드_매입(ERSRecord):
+class V3_2_계산서합계표_제출자대리인매입(ERSRecord):
     레코드구분: str = ERSField(default='A', 길이=1, 누적=1, 점검='A', 비고='Not Null')
     자료구분: int = ERSField(default='18', 길이=2, 누적=3, 점검='18', 비고='Not Null')
     세무서: str = ERSField(default=None, 길이=3, 누적=6, 점검='길이점검', 비고='Null 허용')
@@ -1808,7 +1808,7 @@ class v3_2_계산서합계표_제출자_대리인레코드_매입(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v3_2_계산서합계표_매출계산서의_A레코드와_공동으로_사용함에_따라_삭제처리함_제출의무자인적사항레코드_매입(ERSRecord):
+class V3_2_계산서합계표_매출계산서의A와공동으로사용함에따라삭제처리함제출의무자인적사항매입(ERSRecord):
     레코드구분: str = ERSField(default='B', 길이=1, 누적=1, 점검='B', 비고='Not Null')
     자료구분: int = ERSField(default='18', 길이=2, 누적=3, 점검='18', 비고='Not Null')
     세무서: str = ERSField(default=None, 길이=3, 누적=6, 점검='길이점검', 비고='Null 허용')
@@ -1824,7 +1824,7 @@ class v3_2_계산서합계표_매출계산서의_A레코드와_공동으로_사�
 
 
 @dataclass(kw_only=True)
-class v3_2_계산서합계표_전자계산서_매입집계레코드(ERSRecord):
+class V3_2_계산서합계표_전자계산서매입집계(ERSRecord):
     레코드구분: str = ERSField(default='E', 길이=1, 누적=1, 점검='E', 비고='Not Null')
     자료구분: int = ERSField(default='18', 길이=2, 누적=3, 점검='18', 비고='Not Null')
     기구분: str = ERSField(길이=1, 누적=4, 점검='1,2', 비고='Not Null')
@@ -1844,7 +1844,7 @@ class v3_2_계산서합계표_전자계산서_매입집계레코드(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v3_3_수출실적_명세서_전산매체_A_레코드(ERSRecord):
+class V3_3_수출실적명세서_전산매체_A(ERSRecord):
     자료구분_표지: str = ERSField(길이=1, 누적=1, 점검='A', 비고='Not Null')
     수출신고년월_귀속년월: str = ERSField(길이=6, 누적=7, 점검='년월형식점검', 비고='Not Null')
     신고구분: str = ERSField(길이=1, 누적=8, 점검='1,2,3,4', 비고='Not Null')
@@ -1860,7 +1860,7 @@ class v3_3_수출실적_명세서_전산매체_A_레코드(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v3_3_수출실적_명세서_전산매체_B_레코드(ERSRecord):
+class V3_3_수출실적명세서_전산매체_B(ERSRecord):
     자료구분_합계: str = ERSField(길이=1, 누적=1, 점검='B', 비고='Not Null')
     수출신고년월_귀속년월: str = ERSField(길이=6, 누적=7, 점검='년월형식점검', 비고='Not Null')
     신고구분: str = ERSField(길이=1, 누적=8, 점검='1,2,3,4', 비고='Not Null')
@@ -1878,7 +1878,7 @@ class v3_3_수출실적_명세서_전산매체_B_레코드(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v3_3_수출실적_명세서_전산매체_C_레코드(ERSRecord):
+class V3_3_수출실적명세서_전산매체_C(ERSRecord):
     자료구분_자료: str = ERSField(길이=1, 누적=1, 점검='C', 비고='Not Null')
     수출신고년월_귀속년월: str = ERSField(길이=6, 누적=7, 점검='년월형식점검', 비고='Not Null')
     신고구분: str = ERSField(길이=1, 누적=8, 점검='1,2,3,4', 비고='Not Null')
@@ -1894,7 +1894,7 @@ class v3_3_수출실적_명세서_전산매체_C_레코드(ERSRecord):
 
 
 @dataclass(kw_only=True)
-class v3_4_신용카드매출전표등수령명세서_갑_을_제출자_인적사항_Header_Record(ERSRecord):
+class V3_4_신용카드매출전표등수령명세서_갑_을_제출자인적사항Header(ERSRecord):
     레코드구분: str = ERSField(default='HL', 길이=2, 누적=2, 점검='HL', 비고='HL')
     귀속년도: str = ERSField(default=None, 길이=4, 누적=6, 점검='', 비고='')
     반기구분: str = ERSField(default=None, 길이=1, 누적=7, 점검='1:1기, 2:2기', 비고='1:1기, 2:2기')
@@ -1908,7 +1908,7 @@ class v3_4_신용카드매출전표등수령명세서_갑_을_제출자_인적�
 
 
 @dataclass(kw_only=True)
-class v3_4_신용카드매출전표등수령명세서_갑_을_기타신용_직불카드_및_기명식선불카드_매출전표_수령금액_명세_Data_Record(ERSRecord):
+class V3_4_신용카드매출전표등수령명세서_갑_을_기타신용직불카드및기명식선불카드매출전표수령금액명세Data(ERSRecord):
     레코드구분: str = ERSField(default='DL', 길이=2, 누적=2, 점검='DL', 비고='DL')
     귀속년도: str = ERSField(default=None, 길이=4, 누적=6, 점검='', 비고='')
     반기구분: str = ERSField(default=None, 길이=1, 누적=7, 점검='1:1기, 2:2기', 비고='1:1기, 2:2기')
@@ -1926,7 +1926,7 @@ class v3_4_신용카드매출전표등수령명세서_갑_을_기타신용_직�
 
 
 @dataclass(kw_only=True)
-class v3_4_신용카드매출전표등수령명세서_갑_을_신용카드등_매입내용_합계_Tail_Record(ERSRecord):
+class V3_4_신용카드매출전표등수령명세서_갑_을_신용카드등매입내용합계Tail(ERSRecord):
     레코드구분: str = ERSField(default='TL', 길이=2, 누적=2, 점검='TL', 비고='TL')
     귀속년도: str = ERSField(default=None, 길이=4, 누적=6, 점검='', 비고='')
     반기구분: str = ERSField(default=None, 길이=1, 누적=7, 점검='1:1기, 2:2기', 비고='1:1기, 2:2기')
@@ -1944,110 +1944,108 @@ class v3_4_신용카드매출전표등수령명세서_갑_을_신용카드등_�
 @dataclass(kw_only=True)
 class 부가가치세신고(ERSReport):
     published_date: ClassVar[date] = date(2022, 12, 1)
-    v1_1_신고서_Head_레코드: List[v1_1_신고서_Head_레코드]
-    v1_2_일반과세자_신고서_레코드: List[v1_2_일반과세자_신고서_레코드]
-    v1_3_간이과세자_신고서_레코드: List[v1_3_간이과세자_신고서_레코드]
-    v2_3_간이과세자_신고서_레코드_사업장현황명세서: List[v2_3_간이과세자_신고서_레코드_사업장현황명세서]
-    v2_3_간이과세자_신고서_레코드_신용카드매출전표_등_발행금액집계표: List[v2_3_간이과세자_신고서_레코드_신용카드매출전표_등_발행금액집계표]
-    v2_3_간이과세자_신고서_레코드_영세율첨부서류제출명세서: List[v2_3_간이과세자_신고서_레코드_영세율첨부서류제출명세서]
-    v2_3_간이과세자_신고서_레코드_의제매입세액공제신고서합계: List[v2_3_간이과세자_신고서_레코드_의제매입세액공제신고서합계]
-    v2_3_간이과세자_신고서_레코드_의제매입세액공제신고서명세: List[v2_3_간이과세자_신고서_레코드_의제매입세액공제신고서명세]
-    v2_5_재활용폐자원_및_중고자동차매입세액공제신고서_합계: List[v2_5_재활용폐자원_및_중고자동차매입세액공제신고서_합계]
-    v2_5_재활용폐자원_및_중고자동차매입세액공제신고서_명세: List[v2_5_재활용폐자원_및_중고자동차매입세액공제신고서_명세]
-    v2_6_일반과세전환시재고품및감가상각자산신고서: List[v2_6_일반과세전환시재고품및감가상각자산신고서]
-    v2_6_일반과세전환시재고품및감가상각자산신고서_명세: List[v2_6_일반과세전환시재고품및감가상각자산신고서_명세]
-    v2_7_부동산임대공급가액명세서: List[v2_7_부동산임대공급가액명세서]
-    v2_7_부동산임대공급가액명세서_세부내용: List[v2_7_부동산임대공급가액명세서_세부내용]
-    v2_8_간이과세전환시재고품_및_감가상각자산신고서: List[v2_8_간이과세전환시재고품_및_감가상각자산신고서]
-    v2_10_사업장별부가가치세과세표준_및_납부세액_환급세액신고명세서: List[v2_10_사업장별부가가치세과세표준_및_납부세액_환급세액신고명세서]
-    v2_10_사업장별부가가치세과세표준_및_납부세액_환급세액신고명세서_세부내용: List[v2_10_사업장별부가가치세과세표준_및_납부세액_환급세액신고명세서_세부내용]
-    v2_11_건물등_감가상각자산_취득명세서: List[v2_11_건물등_감가상각자산_취득명세서]
-    v2_12_공제받지못할매입세액명세서_합계: List[v2_12_공제받지못할매입세액명세서_합계]
-    v2_12_공제받지못할매입세액명세서_합계_명세: List[v2_12_공제받지못할매입세액명세서_합계_명세]
-    v2_12_공제받지못할매입세액명세서_합계_공통매입세액안분계산내역: List[v2_12_공제받지못할매입세액명세서_합계_공통매입세액안분계산내역]
-    v2_12_공제받지못할매입세액명세서_합계_공통매입세액정산내역: List[v2_12_공제받지못할매입세액명세서_합계_공통매입세액정산내역]
-    v2_12_공제받지못할매입세액명세서_합계_납부세액환급세액재계산내역: List[v2_12_공제받지못할매입세액명세서_합계_납부세액환급세액재계산내역]
-    v2_13_전자화폐결제명세서: List[v2_13_전자화폐결제명세서]
-    v2_13_전자화폐결제명세서_세부내용: List[v2_13_전자화폐결제명세서_세부내용]
-    v2_14_면세유류공급명세서: List[v2_14_면세유류공급명세서]
-    v2_14_면세유류공급명세서_세부내용: List[v2_14_면세유류공급명세서_세부내용]
-    v2_15_월별판매액합계표_농_축산_임_어업기자재_및_장애인보장구: List[v2_15_월별판매액합계표_농_축산_임_어업기자재_및_장애인보장구]
-    v2_16_매입자발행세금계산서합계표_갑_합계: List[v2_16_매입자발행세금계산서합계표_갑_합계]
-    v2_16_매입자발행세금계산서합계표_갑_세부내용: List[v2_16_매입자발행세금계산서합계표_갑_세부내용]
-    v2_17_과세사업전환감가상각자산신고서_감가상각자산신고서면세사업자인적사항: List[v2_17_과세사업전환감가상각자산신고서_감가상각자산신고서면세사업자인적사항]
-    v2_17_과세사업전환감가상각자산신고서_감가상각자산신고서감가상각자산신고서: List[v2_17_과세사업전환감가상각자산신고서_감가상각자산신고서감가상각자산신고서]
-    v2_18_건물관리명세서: List[v2_18_건물관리명세서]
-    v2_18_건물관리명세서_세부내용: List[v2_18_건물관리명세서_세부내용]
-    v2_19_사업자단위과세의_사업장별부가가치세과세표준및납부세액_환급세액신고명세서_합계: List[v2_19_사업자단위과세의_사업장별부가가치세과세표준및납부세액_환급세액신고명세서_합계]
-    v2_19_사업자단위과세의_사업장별부가가치세과세표준및납부세액_환급세액신고명세서_명세: List[v2_19_사업자단위과세의_사업장별부가가치세과세표준및납부세액_환급세액신고명세서_명세]
-    v2_20_현금매출명세서: List[v2_20_현금매출명세서]
-    v2_20_현금매출명세서_세부내용: List[v2_20_현금매출명세서_세부내용]
-    v2_21_고금_의제매입세액_공제_신고서_고금의제매입세액공제신고서: List[v2_21_고금_의제매입세액_공제_신고서_고금의제매입세액공제신고서]
-    v2_21_고금_의제매입세액_공제_신고서_고금_매입_매출_명세서세부내용: List[v2_21_고금_의제매입세액_공제_신고서_고금_매입_매출_명세서세부내용]
-    v2_22_과세표준및세액의_결정_경정청구서: List[v2_22_과세표준및세액의_결정_경정청구서]
-    v2_23_과세표준수정신고서_및_추가자진납부계산서: List[v2_23_과세표준수정신고서_및_추가자진납부계산서]
-    v2_24_전자세금계산서_발급세액공제신고서: List[v2_24_전자세금계산서_발급세액공제신고서]
-    v2_25_일반_간이과세전환시재고품등신고서: List[v2_25_일반_간이과세전환시재고품등신고서]
-    v2_25_일반_간이과세전환시재고품등신고서_명세: List[v2_25_일반_간이과세전환시재고품등신고서_명세]
-    v2_26_세액공제신청서: List[v2_26_세액공제신청서]
-    v2_26_세액공제신청서_내국신용장_구매확인서전자발급명세서합계: List[v2_26_세액공제신청서_내국신용장_구매확인서전자발급명세서합계]
-    v2_26_세액공제신청서_내국신용장_구매확인서전자발급명세서_명세: List[v2_26_세액공제신청서_내국신용장_구매확인서전자발급명세서_명세]
-    v2_28_원산지확인서발급세액공제신고서_발급세액공제신고서합계: List[v2_28_원산지확인서발급세액공제신고서_발급세액공제신고서합계]
-    v2_28_원산지확인서발급세액공제신고서_발급세액공제신고서명세: List[v2_28_원산지확인서발급세액공제신고서_발급세액공제신고서명세]
-    v2_29_동물진료용역매출명세서: List[v2_29_동물진료용역매출명세서]
-    v2_30_영세율매출명세서: List[v2_30_영세율매출명세서]
-    v2_31_외국인관광객_면세물품_판매_및_환급실적명세서_합계: List[v2_31_외국인관광객_면세물품_판매_및_환급실적명세서_합계]
-    v2_31_외국인관광객_면세물품_판매_및_환급실적명세서_명세: List[v2_31_외국인관광객_면세물품_판매_및_환급실적명세서_명세]
-    v2_32_구리스크랩등_매입세액공제신고서_합계: List[v2_32_구리스크랩등_매입세액공제신고서_합계]
-    v2_32_구리스크랩등_매입세액공제신고서_명세: List[v2_32_구리스크랩등_매입세액공제신고서_명세]
-    v2_33_관세환급금등_명세서: List[v2_33_관세환급금등_명세서]
-    v2_34_외국인물품_외교관면세판매기록표_판매_외교관면세판매기록표: List[v2_34_외국인물품_외교관면세판매기록표_판매_외교관면세판매기록표]
-    v2_35_공급가액확정명세서: List[v2_35_공급가액확정명세서]
-    v2_36_선박에_의한_운송용역_공급가액일람표_합계: List[v2_36_선박에_의한_운송용역_공급가액일람표_합계]
-    v2_36_선박에_의한_운송용역_공급가액일람표_명세: List[v2_36_선박에_의한_운송용역_공급가액일람표_명세]
-    v2_37_외항_선박등에_제공한_재화용역일람표_합계: List[v2_37_외항_선박등에_제공한_재화용역일람표_합계]
-    v2_37_외항_선박등에_제공한_재화용역일람표_명세: List[v2_37_외항_선박등에_제공한_재화용역일람표_명세]
-    v2_38_외화획득명세서_합계: List[v2_38_외화획득명세서_합계]
-    v2_38_외화획득명세서_명세: List[v2_38_외화획득명세서_명세]
-    v2_39_재화_용역공급기록표: List[v2_39_재화_용역공급기록표]
-    v2_40_사업양도신고서_합계: List[v2_40_사업양도신고서_합계]
-    v2_40_사업양도신고서_명세: List[v2_40_사업양도신고서_명세]
-    v2_41_외국인관광객_즉시환급_물품_판매_실적명세서_합계: List[v2_41_외국인관광객_즉시환급_물품_판매_실적명세서_합계]
-    v2_41_외국인관광객_즉시환급_물품_판매_실적명세서_명세: List[v2_41_외국인관광객_즉시환급_물품_판매_실적명세서_명세]
-    v2_42_평창동계올림픽_관련_사업자에_대한_의제매입세액공제_신고서_합계: List[v2_42_평창동계올림픽_관련_사업자에_대한_의제매입세액공제_신고서_합계]
-    v2_42_평창동계올림픽_관련_사업자에_대한_의제매입세액공제_신고서_명세: List[v2_42_평창동계올림픽_관련_사업자에_대한_의제매입세액공제_신고서_명세]
-    v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_의제매입세액공제_신고서_합계: List[v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_의제매입세액공제_신고서_합계]
-    v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_의제매입세액공제_신고서_명세: List[v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_의제매입세액공제_신고서_명세]
-    v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_의제매입세액공제_신고서_입국경로에_설치된_보세판매장_공급실적명세서_명세: List[
-        v2_43_2019_광주_세계수영선수권대회_관련_사업자에_대한_의제매입세액공제_신고서_입국경로에_설치된_보세판매장_공급실적명세서_명세]
-    v2_45_소규모_개인사업자_부가가치세_감면신청서_신청서_합계: List[v2_45_소규모_개인사업자_부가가치세_감면신청서_신청서_합계]
-    v2_45_소규모_개인사업자_부가가치세_감면신청서_신청서_명세: List[v2_45_소규모_개인사업자_부가가치세_감면신청서_신청서_명세]
-    v2_46_외국인관광객_숙박용역_환급실적명세서_합계: List[v2_46_외국인관광객_숙박용역_환급실적명세서_합계]
-    v2_46_외국인관광객_숙박용역_환급실적명세서_명세: List[v2_46_외국인관광객_숙박용역_환급실적명세서_명세]
-    v2_47_외국인관광객_미용성형_의료용역_환급실적명세서_합계: List[v2_47_외국인관광객_미용성형_의료용역_환급실적명세서_합계]
-    v2_47_외국인관광객_미용성형_의료용역_환급실적명세서_명세: List[v2_47_외국인관광객_미용성형_의료용역_환급실적명세서_명세]
-    v3_1_세금계산서합계표_표지_Head_Record: List[v3_1_세금계산서합계표_표지_Head_Record]
-    v3_1_세금계산서합계표_지연전송한_전자세금계산서를_여기에_적습니다: List[v3_1_세금계산서합계표_지연전송한_전자세금계산서를_여기에_적습니다]
-    v3_1_세금계산서합계표_지연전송한_전자세금계산서를_여기에_적습니다: List[v3_1_세금계산서합계표_지연전송한_전자세금계산서를_여기에_적습니다]
-    v3_1_세금계산서합계표_전자세금계산서분_매출합계_Total_Record: List[v3_1_세금계산서합계표_전자세금계산서분_매출합계_Total_Record]
-    v3_1_세금계산서합계표_14_세액_전자세금계산서분_주민등록번호_발행분의_세액의_합계를_수록함_음수인_경우_멀티키_Multi_Key_사용_116_페이지_참고: List[
-        v3_1_세금계산서합계표_14_세액_전자세금계산서분_주민등록번호_발행분의_세액의_합계를_수록함_음수인_경우_멀티키_Multi_Key_사용_116_페이지_참고]
-    v3_1_세금계산서합계표: List[v3_1_세금계산서합계표]
-    v3_1_세금계산서합계표_전자세금계산서분_매입합계_Total_Record: List[v3_1_세금계산서합계표_전자세금계산서분_매입합계_Total_Record]
-    v3_2_계산서합계표_제출자_대리인레코드: List[v3_2_계산서합계표_제출자_대리인레코드]
-    v3_2_계산서합계표_제출의무자인적사항레코드: List[v3_2_계산서합계표_제출의무자인적사항레코드]
-    v3_2_계산서합계표_제출의무자별집계레코드_매출: List[v3_2_계산서합계표_제출의무자별집계레코드_매출]
-    v3_2_계산서합계표_지연전송한_전자계산서를_여기에_적습니다: List[v3_2_계산서합계표_지연전송한_전자계산서를_여기에_적습니다]
-    v3_2_계산서합계표_전자계산서_매출집계레코드_매출: List[v3_2_계산서합계표_전자계산서_매출집계레코드_매출]
-    v3_2_계산서합계표_제출자_대리인레코드_매입: List[v3_2_계산서합계표_제출자_대리인레코드_매입]
-    v3_2_계산서합계표_매출계산서의_A레코드와_공동으로_사용함에_따라_삭제처리함_제출의무자인적사항레코드_매입: List[v3_2_계산서합계표_매출계산서의_A레코드와_공동으로_사용함에_따라_삭제처리함_제출의무자인적사항레코드_매입]
-    v3_2_계산서합계표_지연전송한_전자계산서를_여기에_적습니다: List[v3_2_계산서합계표_지연전송한_전자계산서를_여기에_적습니다]
-    v3_2_계산서합계표_지연전송한_전자계산서를_여기에_적습니다: List[v3_2_계산서합계표_지연전송한_전자계산서를_여기에_적습니다]
-    v3_2_계산서합계표_전자계산서_매입집계레코드: List[v3_2_계산서합계표_전자계산서_매입집계레코드]
-    v3_3_수출실적_명세서_전산매체_A_레코드: List[v3_3_수출실적_명세서_전산매체_A_레코드]
-    v3_3_수출실적_명세서_전산매체_B_레코드: List[v3_3_수출실적_명세서_전산매체_B_레코드]
-    v3_3_수출실적_명세서_전산매체_C_레코드: List[v3_3_수출실적_명세서_전산매체_C_레코드]
-    v3_4_신용카드매출전표등수령명세서_갑_을_제출자_인적사항_Header_Record: List[v3_4_신용카드매출전표등수령명세서_갑_을_제출자_인적사항_Header_Record]
-    v3_4_신용카드매출전표등수령명세서_갑_을_기타신용_직불카드_및_기명식선불카드_매출전표_수령금액_명세_Data_Record: List[
-        v3_4_신용카드매출전표등수령명세서_갑_을_기타신용_직불카드_및_기명식선불카드_매출전표_수령금액_명세_Data_Record]
-    v3_4_신용카드매출전표등수령명세서_갑_을_신용카드등_매입내용_합계_Tail_Record: List[v3_4_신용카드매출전표등수령명세서_갑_을_신용카드등_매입내용_합계_Tail_Record]
+    V1_1_신고서Head: List[V1_1_신고서Head]
+    V1_2_일반과세자신고서: List[V1_2_일반과세자신고서]
+    V1_3_간이과세자신고서: List[V1_3_간이과세자신고서]
+    V2_3_간이과세자신고서_사업장현황명세서: List[V2_3_간이과세자신고서_사업장현황명세서]
+    V2_3_간이과세자신고서_신용카드매출전표등발행금액집계표: List[V2_3_간이과세자신고서_신용카드매출전표등발행금액집계표]
+    V2_3_간이과세자신고서_영세율첨부서류제출명세서: List[V2_3_간이과세자신고서_영세율첨부서류제출명세서]
+    V2_3_간이과세자신고서_의제매입세액공제신고서합계: List[V2_3_간이과세자신고서_의제매입세액공제신고서합계]
+    V2_3_간이과세자신고서_의제매입세액공제신고서명세: List[V2_3_간이과세자신고서_의제매입세액공제신고서명세]
+    V2_5_재활용폐자원및중고자동차매입세액공제신고서_합계: List[V2_5_재활용폐자원및중고자동차매입세액공제신고서_합계]
+    V2_5_재활용폐자원및중고자동차매입세액공제신고서_명세: List[V2_5_재활용폐자원및중고자동차매입세액공제신고서_명세]
+    V2_6_일반과세전환시재고품및감가상각자산신고서: List[V2_6_일반과세전환시재고품및감가상각자산신고서]
+    V2_6_일반과세전환시재고품및감가상각자산신고서_명세: List[V2_6_일반과세전환시재고품및감가상각자산신고서_명세]
+    V2_7_부동산임대공급가액명세서: List[V2_7_부동산임대공급가액명세서]
+    V2_7_부동산임대공급가액명세서_세부내용: List[V2_7_부동산임대공급가액명세서_세부내용]
+    V2_8_간이과세전환시재고품및감가상각자산신고서: List[V2_8_간이과세전환시재고품및감가상각자산신고서]
+    V2_10_사업장별부가가치세과세표준및납부세액_환급세액신고명세서: List[V2_10_사업장별부가가치세과세표준및납부세액_환급세액신고명세서]
+    V2_10_사업장별부가가치세과세표준및납부세액_환급세액신고명세서_환급세액신고명세서세부내용: List[V2_10_사업장별부가가치세과세표준및납부세액_환급세액신고명세서_환급세액신고명세서세부내용]
+    V2_11_건물등감가상각자산취득명세서: List[V2_11_건물등감가상각자산취득명세서]
+    V2_12_공제받지못할매입세액명세서_합계: List[V2_12_공제받지못할매입세액명세서_합계]
+    V2_12_공제받지못할매입세액명세서_합계_명세: List[V2_12_공제받지못할매입세액명세서_합계_명세]
+    V2_12_공제받지못할매입세액명세서_합계_공통매입세액안분계산내역: List[V2_12_공제받지못할매입세액명세서_합계_공통매입세액안분계산내역]
+    V2_12_공제받지못할매입세액명세서_합계_공통매입세액정산내역: List[V2_12_공제받지못할매입세액명세서_합계_공통매입세액정산내역]
+    V2_12_공제받지못할매입세액명세서_합계_납부세액환급세액재계산내역: List[V2_12_공제받지못할매입세액명세서_합계_납부세액환급세액재계산내역]
+    V2_13_전자화폐결제명세서: List[V2_13_전자화폐결제명세서]
+    V2_13_전자화폐결제명세서_세부내용: List[V2_13_전자화폐결제명세서_세부내용]
+    V2_14_면세유류공급명세서: List[V2_14_면세유류공급명세서]
+    V2_14_면세유류공급명세서_세부내용: List[V2_14_면세유류공급명세서_세부내용]
+    V2_15_월별판매액합계표_농_축산_임_어업기자재및장애인보장구: List[V2_15_월별판매액합계표_농_축산_임_어업기자재및장애인보장구]
+    V2_16_매입자발행세금계산서합계표_갑_합계: List[V2_16_매입자발행세금계산서합계표_갑_합계]
+    V2_16_매입자발행세금계산서합계표_갑_세부내용: List[V2_16_매입자발행세금계산서합계표_갑_세부내용]
+    V2_17_과세사업전환감가상각자산신고서_면세사업자인적사항: List[V2_17_과세사업전환감가상각자산신고서_면세사업자인적사항]
+    V2_17_과세사업전환감가상각자산신고서_감가상각자산신고서: List[V2_17_과세사업전환감가상각자산신고서_감가상각자산신고서]
+    V2_18_건물관리명세서: List[V2_18_건물관리명세서]
+    V2_18_건물관리명세서_세부내용: List[V2_18_건물관리명세서_세부내용]
+    V2_19_사업자단위과세의사업장별부가가치세과세표준및납부세액_환급세액신고명세서_환급세액신고명세서합계: List[V2_19_사업자단위과세의사업장별부가가치세과세표준및납부세액_환급세액신고명세서_환급세액신고명세서합계]
+    V2_19_사업자단위과세의사업장별부가가치세과세표준및납부세액_환급세액신고명세서_환급세액신고명세서명세: List[V2_19_사업자단위과세의사업장별부가가치세과세표준및납부세액_환급세액신고명세서_환급세액신고명세서명세]
+    V2_20_현금매출명세서: List[V2_20_현금매출명세서]
+    V2_20_현금매출명세서_세부내용: List[V2_20_현금매출명세서_세부내용]
+    V2_21_고금의제매입세액공제신고서: List[V2_21_고금의제매입세액공제신고서]
+    V2_21_고금의제매입세액공제신고서_고금매입매출명세서세부내용: List[V2_21_고금의제매입세액공제신고서_고금매입매출명세서세부내용]
+    V2_22_과세표준및세액의결정_경정청구서_경정청구서: List[V2_22_과세표준및세액의결정_경정청구서_경정청구서]
+    V2_23_과세표준수정신고서및추가자진납부계산서: List[V2_23_과세표준수정신고서및추가자진납부계산서]
+    V2_24_전자세금계산서발급세액공제신고서: List[V2_24_전자세금계산서발급세액공제신고서]
+    V2_25_일반_간이과세전환시재고품등신고서: List[V2_25_일반_간이과세전환시재고품등신고서]
+    V2_25_일반_간이과세전환시재고품등신고서_일반간이과세전환시재고품등신고서명세: List[V2_25_일반_간이과세전환시재고품등신고서_일반간이과세전환시재고품등신고서명세]
+    V2_26_세액공제신청서: List[V2_26_세액공제신청서]
+    V2_26_세액공제신청서_내국신용장구매확인서전자발급명세서합계: List[V2_26_세액공제신청서_내국신용장구매확인서전자발급명세서합계]
+    V2_26_세액공제신청서_내국신용장구매확인서전자발급명세서명세: List[V2_26_세액공제신청서_내국신용장구매확인서전자발급명세서명세]
+    V2_28_원산지확인서발급세액공제신고서_합계: List[V2_28_원산지확인서발급세액공제신고서_합계]
+    V2_28_원산지확인서발급세액공제신고서_명세: List[V2_28_원산지확인서발급세액공제신고서_명세]
+    V2_29_동물진료용역매출명세서: List[V2_29_동물진료용역매출명세서]
+    V2_30_영세율매출명세서: List[V2_30_영세율매출명세서]
+    V2_31_외국인관광객면세물품판매및환급실적명세서_합계: List[V2_31_외국인관광객면세물품판매및환급실적명세서_합계]
+    V2_31_외국인관광객면세물품판매및환급실적명세서_명세: List[V2_31_외국인관광객면세물품판매및환급실적명세서_명세]
+    V2_32_구리스크랩등매입세액공제신고서_합계: List[V2_32_구리스크랩등매입세액공제신고서_합계]
+    V2_32_구리스크랩등매입세액공제신고서_명세: List[V2_32_구리스크랩등매입세액공제신고서_명세]
+    V2_33_관세환급금등명세서: List[V2_33_관세환급금등명세서]
+    V2_34_외국인물품_외교관면세판매기록표_판매외교관면세판매기록표: List[V2_34_외국인물품_외교관면세판매기록표_판매외교관면세판매기록표]
+    V2_35_공급가액확정명세서: List[V2_35_공급가액확정명세서]
+    V2_36_선박에의한운송용역공급가액일람표_합계: List[V2_36_선박에의한운송용역공급가액일람표_합계]
+    V2_36_선박에의한운송용역공급가액일람표_명세: List[V2_36_선박에의한운송용역공급가액일람표_명세]
+    V2_37_외항_선박등에제공한재화용역일람표_외항선박등에제공한재화용역일람표합계: List[V2_37_외항_선박등에제공한재화용역일람표_외항선박등에제공한재화용역일람표합계]
+    V2_37_외항_선박등에제공한재화용역일람표_외항선박등에제공한재화용역일람표명세: List[V2_37_외항_선박등에제공한재화용역일람표_외항선박등에제공한재화용역일람표명세]
+    V2_38_외화획득명세서_합계: List[V2_38_외화획득명세서_합계]
+    V2_38_외화획득명세서_명세: List[V2_38_외화획득명세서_명세]
+    V2_39_재화_용역공급기록표: List[V2_39_재화_용역공급기록표]
+    V2_40_사업양도신고서_합계: List[V2_40_사업양도신고서_합계]
+    V2_40_사업양도신고서_명세: List[V2_40_사업양도신고서_명세]
+    V2_41_외국인관광객즉시환급물품판매실적명세서_합계: List[V2_41_외국인관광객즉시환급물품판매실적명세서_합계]
+    V2_41_외국인관광객즉시환급물품판매실적명세서_명세: List[V2_41_외국인관광객즉시환급물품판매실적명세서_명세]
+    V2_42_평창동계올림픽관련사업자에대한의제매입세액공제신고서_합계: List[V2_42_평창동계올림픽관련사업자에대한의제매입세액공제신고서_합계]
+    V2_42_평창동계올림픽관련사업자에대한의제매입세액공제신고서_명세: List[V2_42_평창동계올림픽관련사업자에대한의제매입세액공제신고서_명세]
+    V2_43_2019광주세계수영선수권대회관련사업자에대한의제매입세액공제신고서_합계: List[V2_43_2019광주세계수영선수권대회관련사업자에대한의제매입세액공제신고서_합계]
+    V2_43_2019광주세계수영선수권대회관련사업자에대한의제매입세액공제신고서_명세: List[V2_43_2019광주세계수영선수권대회관련사업자에대한의제매입세액공제신고서_명세]
+    V2_43_2019광주세계수영선수권대회관련사업자에대한의제매입세액공제신고서_입국경로에설치된보세판매장공급실적명세서명세: List[V2_43_2019광주세계수영선수권대회관련사업자에대한의제매입세액공제신고서_입국경로에설치된보세판매장공급실적명세서명세]
+    V2_45_소규모개인사업자부가가치세감면신청서_합계: List[V2_45_소규모개인사업자부가가치세감면신청서_합계]
+    V2_45_소규모개인사업자부가가치세감면신청서_명세: List[V2_45_소규모개인사업자부가가치세감면신청서_명세]
+    V2_46_외국인관광객숙박용역환급실적명세서_합계: List[V2_46_외국인관광객숙박용역환급실적명세서_합계]
+    V2_46_외국인관광객숙박용역환급실적명세서_명세: List[V2_46_외국인관광객숙박용역환급실적명세서_명세]
+    V2_47_외국인관광객미용성형의료용역환급실적명세서_합계: List[V2_47_외국인관광객미용성형의료용역환급실적명세서_합계]
+    V2_47_외국인관광객미용성형의료용역환급실적명세서_명세: List[V2_47_외국인관광객미용성형의료용역환급실적명세서_명세]
+    V3_1_세금계산서합계표_표지Head: List[V3_1_세금계산서합계표_표지Head]
+    V3_1_세금계산서합계표_지연전송한전자세금계산서를여기에적습니다: List[V3_1_세금계산서합계표_지연전송한전자세금계산서를여기에적습니다]
+    V3_1_세금계산서합계표_지연전송한전자세금계산서를여기에적습니다: List[V3_1_세금계산서합계표_지연전송한전자세금계산서를여기에적습니다]
+    V3_1_세금계산서합계표_전자세금계산서분매출합계Total: List[V3_1_세금계산서합계표_전자세금계산서분매출합계Total]
+    V3_1_세금계산서합계표_14세액전자세금계산서분주민등록번호발행분의세액의합계를수록함음수인경우멀티키MultiKey사용116페이지참고: List[
+        V3_1_세금계산서합계표_14세액전자세금계산서분주민등록번호발행분의세액의합계를수록함음수인경우멀티키MultiKey사용116페이지참고]
+    V3_1_세금계산서합계표: List[V3_1_세금계산서합계표]
+    V3_1_세금계산서합계표_전자세금계산서분매입합계Total: List[V3_1_세금계산서합계표_전자세금계산서분매입합계Total]
+    V3_2_계산서합계표_제출자대리인: List[V3_2_계산서합계표_제출자대리인]
+    V3_2_계산서합계표_제출의무자인적사항: List[V3_2_계산서합계표_제출의무자인적사항]
+    V3_2_계산서합계표_제출의무자별집계매출: List[V3_2_계산서합계표_제출의무자별집계매출]
+    V3_2_계산서합계표_지연전송한전자계산서를여기에적습니다: List[V3_2_계산서합계표_지연전송한전자계산서를여기에적습니다]
+    V3_2_계산서합계표_전자계산서매출집계매출: List[V3_2_계산서합계표_전자계산서매출집계매출]
+    V3_2_계산서합계표_제출자대리인매입: List[V3_2_계산서합계표_제출자대리인매입]
+    V3_2_계산서합계표_매출계산서의A와공동으로사용함에따라삭제처리함제출의무자인적사항매입: List[V3_2_계산서합계표_매출계산서의A와공동으로사용함에따라삭제처리함제출의무자인적사항매입]
+    V3_2_계산서합계표_지연전송한전자계산서를여기에적습니다: List[V3_2_계산서합계표_지연전송한전자계산서를여기에적습니다]
+    V3_2_계산서합계표_지연전송한전자계산서를여기에적습니다: List[V3_2_계산서합계표_지연전송한전자계산서를여기에적습니다]
+    V3_2_계산서합계표_전자계산서매입집계: List[V3_2_계산서합계표_전자계산서매입집계]
+    V3_3_수출실적명세서_전산매체_A: List[V3_3_수출실적명세서_전산매체_A]
+    V3_3_수출실적명세서_전산매체_B: List[V3_3_수출실적명세서_전산매체_B]
+    V3_3_수출실적명세서_전산매체_C: List[V3_3_수출실적명세서_전산매체_C]
+    V3_4_신용카드매출전표등수령명세서_갑_을_제출자인적사항Header: List[V3_4_신용카드매출전표등수령명세서_갑_을_제출자인적사항Header]
+    V3_4_신용카드매출전표등수령명세서_갑_을_기타신용직불카드및기명식선불카드매출전표수령금액명세Data: List[V3_4_신용카드매출전표등수령명세서_갑_을_기타신용직불카드및기명식선불카드매출전표수령금액명세Data]
+    V3_4_신용카드매출전표등수령명세서_갑_을_신용카드등매입내용합계Tail: List[V3_4_신용카드매출전표등수령명세서_갑_을_신용카드등매입내용합계Tail]
