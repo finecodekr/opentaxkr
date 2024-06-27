@@ -21,6 +21,7 @@ dependencies = [
     "dynaconf",
     "yapf",
     "pycountry",
+    "opentaxkr-models @ git+https://github.com/finecodekr/opentaxkr-models.git",
 ]
 [project.urls]
 Home = "https://github.com/finecodekr/opentaxkr"

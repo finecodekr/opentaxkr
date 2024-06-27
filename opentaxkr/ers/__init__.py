@@ -12,6 +12,8 @@ from typing import List, Dict, ClassVar, get_type_hints, TypeVar, Type, BinaryIO
 
 import dateutil.parser
 
+
+세무프로그램코드 = '9000'
 REPORT_CLASS_POSTFIX = '신고'
 
 

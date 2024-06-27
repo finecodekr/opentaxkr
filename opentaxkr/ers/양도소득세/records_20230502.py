@@ -7,7 +7,8 @@ from addresskr import 도로명주소
 from opentaxkr.ers import ERSRecord, ERSReport, ERSField
 from opentaxkr.ers.util import yn, country_name, deduct, ZERO
 from opentaxkr.ers.양도소득세 import 주식종류코드
-from opentaxkr.models import 세무프로그램코드, 세무대리인, 납세자
+from opentaxkr.ers import 세무프로그램코드
+from otkmodels import 납세자, 세무대리인
 
 
 @dataclass(kw_only=True)

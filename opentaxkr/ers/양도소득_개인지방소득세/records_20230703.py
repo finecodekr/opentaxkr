@@ -4,7 +4,7 @@ from decimal import Decimal
 from typing import List, ClassVar
 from opentaxkr.ers import ERSRecord, ERSReport, ERSField
 from opentaxkr.ers.양도소득세.records_20230502 import 양도소득세신고
-from opentaxkr.models import 세무프로그램코드
+from opentaxkr.ers import 세무프로그램코드
 
 
 @dataclass(kw_only=True)
