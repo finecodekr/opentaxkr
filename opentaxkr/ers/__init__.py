@@ -53,8 +53,7 @@ class ERSReport:
         """전자신고서식에 맞게 데이터를 파싱한다."""
         report = cls()
         for line in fp:
-            record = cls.parse_record(line)
-            getattr(report, record.__class__.__name__).append(record)
+            report.append_record(cls.parse_record(line))
 
         return report
 
@@ -89,6 +88,9 @@ class ERSReport:
 
         return record_class(**data)
 
+    def append_record(self, record: 'ERSRecord'):
+        getattr(self, record.__class__.__name__).append(record)
+
     @classmethod
     def find_record_class(cls, line: bytes):
         for record_class in cls.record_classes.values():
@@ -99,15 +101,22 @@ class ERSReport:
     def records_module(cls) -> ModuleType:
         raise NotImplementedError
 
-    @classmethod
-    def from_list_of_dict(cls, list_of_dict: List[Dict]):
+    def load_list_of_dict(self, list_of_dict: List[Dict]):
         # TODO 날짜에 따라 맞는 모듈 찾기
         # format = cls.format.as_of(list_of_dict[0][cls.report_date_field])
         # TODO
-        return cls([getattr(cls.records_module(), record_dict.pop('서식명'))(**record_dict) for record_dict in list_of_dict])
+
+        for record_dict in list_of_dict:
+            record_dict = dict(record_dict)
+            self.append_record(self.record_classes[record_dict.pop('서식명')](**record_dict))
+
+        return self
 
     def records(self) -> Iterable['ERSRecord']:
         return itertools.chain(*[getattr(self, cls.__name__) for cls in self.record_classes.values()])
+
+    def to_list_of_dict(self) -> List[Dict]:
+        return [record.asdict() for record in self.records()]
 
     def serialize(self):
         return b'\r\n'.join([record.serialize() for record in self.records()])
