@@ -36,7 +36,8 @@ class 납세자:
             self.사용자구분코드 = 홈택스사용자구분(self.사용자구분코드)
 
         self.납세자ID = self.납세자ID.replace('-', '')
-        self.도로명주소 = 도로명주소.parse(self.주소)
+        if self.주소:
+            self.도로명주소 = 도로명주소.parse(self.주소)
         self.휴대전화번호 = self.휴대전화번호.replace('-', '')
 
 
