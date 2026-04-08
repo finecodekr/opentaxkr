@@ -37,7 +37,11 @@ class 납세자:
 
         self.납세자ID = self.납세자ID.replace('-', '')
         if self.주소:
-            self.도로명주소 = 도로명주소.parse(self.주소)
+            try:
+                self.도로명주소 = 도로명주소.parse(self.주소)
+            except:
+                pass
+
         self.휴대전화번호 = self.휴대전화번호.replace('-', '')
 
 
