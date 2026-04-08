@@ -5,7 +5,7 @@ from unittest import TestCase
 from opentaxkr.ers.util import ZERO
 from opentaxkr.ers.양도소득_개인지방소득세 import 양도소득_개인지방소득세신고
 from opentaxkr.ers.양도소득세 import 양도소득_과세구분, 자산의종류, 주식종류코드, 취득유형, 양도소득세신고, TI06_주식양도소득금액_계산명세
-from opentaxkr.models import 세무대리인, 납세자
+from otkmodels import 세무대리인, 납세자
 
 
 class Test주식양도소득세신고(TestCase):

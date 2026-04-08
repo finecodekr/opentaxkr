@@ -861,25 +861,25 @@ class 양도소득세신고(ERSReport):
         address = 도로명주소.parse(self.납세자.주소)
         self.TI02_양도소득세과세표준신고서_기본사항 = [
             TI02_양도소득세과세표준신고서_기본사항(전화번호=self.납세자.휴대전화번호,
-                                   주소_법정동코드=address.법정동코드,
+                                   주소_법정동코드=address and address.법정동코드,
                                    내외국인여부=yn(self.납세자.국적코드 == 'KR'),
                                    거주구분=yn(self.납세자.국적코드 != self.납세자.거주지국가코드),
                                    거주지국코드=self.납세자.거주지국가코드,
                                    거주지국명=country_name(self.납세자.거주지국가코드),
                                    국적코드=self.납세자.국적코드,
-                                   도로명_도로명코드=address.도로명코드,
-                                   도로명_도로명=address.도로명,
-                                   도로명_지하만있는건물구분=address.지하여부,
-                                   도로명_건물번호_본번=address.건물본번,
-                                   도로명_건물번호_부번=address.건물부번,
+                                   도로명_도로명코드=address and address.도로명코드,
+                                   도로명_도로명=address and address.도로명,
+                                   도로명_지하만있는건물구분=address and address.지하여부,
+                                   도로명_건물번호_본번=address and address.건물본번,
+                                   도로명_건물번호_부번=address and address.건물부번,
                                    도로명_아파트동_도로명='',
                                    도로명_아파트호_도로명='',
-                                   도로명_읍면동일련번호=address.읍면동일련번호,
-                                   주소_번지=address.지번본번_번지,
-                                   주소_호=address.지번부번_호,
-                                   주소_아파트명=address.건물명,
-                                   주소_아파트호=address.상세주소,
-                                   주소_특수지코드=address.특수지코드)
+                                   도로명_읍면동일련번호=address and address.읍면동일련번호,
+                                   주소_번지=address and address.지번본번_번지,
+                                   주소_호=address and address.지번부번_호,
+                                   주소_아파트명=address and address.건물명,
+                                   주소_아파트호=address and address.상세주소,
+                                   주소_특수지코드=address and address.특수지코드)
         ]
         self.TI01_양도소득세과세표준신고서_HEADER = [
             TI01_양도소득세과세표준신고서_HEADER(성명=self.납세자.납세자명,
