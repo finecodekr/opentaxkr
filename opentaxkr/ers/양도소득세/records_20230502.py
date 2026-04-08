@@ -858,7 +858,11 @@ class 양도소득세신고(ERSReport):
                                    주민세_자진납부세액=int(sum((r.산출세액 for r in 합계내역)) * Decimal('0.1'))))
         self.TI03_양도소득과세표준신고서_세율별내역.append(
             TI03_양도소득과세표준신고서_세율별내역(국내외분='Z', 세율구분='98', 과세표준=self.TI03_양도소득과세표준신고서_세율별내역[-1].과세표준 * Decimal(0.1)))
-        address = 도로명주소.parse(self.납세자.주소)
+        try:
+            address = 도로명주소.parse(self.납세자.주소)
+        except:
+            address = None
+
         self.TI02_양도소득세과세표준신고서_기본사항 = [
             TI02_양도소득세과세표준신고서_기본사항(전화번호=self.납세자.휴대전화번호,
                                    주소_법정동코드=address and address.법정동코드,
