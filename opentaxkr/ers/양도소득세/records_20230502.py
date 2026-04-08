@@ -864,7 +864,7 @@ class 양도소득세신고(ERSReport):
         except:
             address = object.__new__(도로명주소)
             for f in dataclasses.fields(도로명주소):
-                setattr(address, f.name, '')
+                setattr(address, f.name, f.type())
 
         self.TI02_양도소득세과세표준신고서_기본사항 = [
             TI02_양도소득세과세표준신고서_기본사항(전화번호=self.납세자.휴대전화번호,
