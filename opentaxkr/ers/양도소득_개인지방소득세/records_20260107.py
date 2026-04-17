@@ -36,7 +36,7 @@ class LI02_양도소득_과세표준확정신고_기본정보(ERSRecord):
     납세지_시군구코드: str = ERSField(default=None, 길이=3, 누적=519, 점검='', 비고='Not null (1)')
     납세지_법정동코드: str = ERSField(default=None, 길이=5, 누적=524, 점검='', 비고='Not null (1)')
     납세자_구분: str = ERSField(default=None, 길이=2, 누적=526, 점검='', 비고='Not null')
-    신고구분: str = ERSField(default=None, 길이=2, 누적=528, 점검='', 비고='Not null')
+    신고구분: str = ERSField(default=None, 길이=2, 누적=528, 점검='11,13', 비고='Not null')
     신고유형: str = ERSField(default=None, 길이=1, 누적=529, 점검='', 비고='Not null (2)')
     귀속년도: str = ERSField(default=None, 길이=4, 누적=533, 점검='', 비고='Not null')
     양도소득년월: str = ERSField(default=None, 길이=6, 누적=539, 점검='', 비고='Not null')
@@ -85,10 +85,11 @@ class LI03_양도소득_과세표준확정신고_세율별내역(ERSRecord):
     기신고_결정_경정세액_조정공제: int = ERSField(default=0, 길이=14, 누적=208, 점검='', 비고='Not Null default 0 (13)')
     납부_환급할_총세액: int = ERSField(default=0, 길이=14, 누적=222, 점검='', 비고='Not Null default 0 (14)')
     전자신고_세액공제: int = ERSField(default=0, 길이=14, 누적=236, 점검='', 비고='Not Null default 0 (11)')
+    연금계좌세액공제금액: int = ERSField(default=0, 길이=14, 누적=250, 점검='', 비고='Not Null default 0')
 
 
 class 양도소득_개인지방소득세신고(ERSReport):
-    published_date: ClassVar[date] = date(2023, 7, 3)
+    published_date: ClassVar[date] = date(2026, 1, 7)
     LI01_양도소득_과세표준확정신고_HEADER: List[LI01_양도소득_과세표준확정신고_HEADER]
     LI02_양도소득_과세표준확정신고_기본정보: List[LI02_양도소득_과세표준확정신고_기본정보]
     LI03_양도소득_과세표준확정신고_세율별내역: List[LI03_양도소득_과세표준확정신고_세율별내역]
@@ -148,6 +149,7 @@ class 양도소득_개인지방소득세신고(ERSReport):
                                      무_과소신고_가산세_신고불성실=0,
                                      기신고_결정_경정세액_조정공제=0,
                                      납부_환급할_총세액=record.자진납부할_세액 // 100 * 10,
-                                     전자신고_세액공제=0) for record in sorted(국세신고.TI03_양도소득과세표준신고서_세율별내역, key=lambda r: r.세율구분)
+                                     전자신고_세액공제=0,
+                                     연금계좌세액공제금액=0) for record in sorted(국세신고.TI03_양도소득과세표준신고서_세율별내역, key=lambda r: r.세율구분)
             if record.국내외분 != 'Z'
         ]

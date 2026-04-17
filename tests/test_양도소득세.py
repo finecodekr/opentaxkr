@@ -1,9 +1,14 @@
 from datetime import date
 from decimal import Decimal
+from pathlib import Path
 from unittest import TestCase
 
 from opentaxkr.ers.util import ZERO
 from opentaxkr.ers.양도소득_개인지방소득세 import 양도소득_개인지방소득세신고
+from opentaxkr.ers.양도소득_개인지방소득세.records_20260107 import (
+    LI02_양도소득_과세표준확정신고_기본정보,
+    양도소득_개인지방소득세신고 as 양도소득_개인지방소득세신고_20260107,
+)
 from opentaxkr.ers.양도소득세 import 양도소득_과세구분, 자산의종류, 주식종류코드, 취득유형, 양도소득세신고, TI06_주식양도소득금액_계산명세
 from otkmodels import 세무대리인, 납세자
 
@@ -113,3 +118,26 @@ class Test주식양도소득세신고(TestCase):
         with open('samples/양도소득세_지방소득세_C116300.Y11', 'rb') as f:
             data = f.read()
             self.assertEqual(data.splitlines(), 양도소득_개인지방소득세신고(report).serialize().splitlines())
+
+    def test_지방소득세_20260107_샘플_roundtrip(self):
+        sample_dir = Path(__file__).with_name('samples')
+        for sample in sorted(sample_dir.glob('*.Y13')):
+            with self.subTest(sample=sample.name):
+                with sample.open('rb') as f:
+                    data = f.read()
+
+                report = 양도소득_개인지방소득세신고_20260107.parse(data.splitlines())
+                parsed_lines = report.serialize().splitlines()
+                sample_lines = data.splitlines()
+
+                self.assertEqual(sample_lines[0], parsed_lines[0])
+                self.assertEqual(sample_lines[2:], parsed_lines[2:])
+
+                normalized_basic_info = bytearray(sample_lines[1])
+                for field_name in ['양수인_분자지분율', '양수인_분모지분율']:
+                    field = LI02_양도소득_과세표준확정신고_기본정보.fields()[field_name]
+                    start = int(field.누적) - int(field.길이)
+                    end = int(field.누적)
+                    normalized_basic_info[start:end] = b'0' * int(field.길이)
+
+                self.assertEqual(bytes(normalized_basic_info), parsed_lines[1])

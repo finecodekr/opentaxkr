@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import BinaryIO
 
-from .records_20230703 import *
+from .records_20260107 import *
 
 
 def detect_report_date(data: BinaryIO):
