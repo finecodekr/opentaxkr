@@ -113,7 +113,8 @@ class TI03_양도소득과세표준신고서_세율별내역(ERSRecord):
     소득감면대상_소득금액: int = ERSField(default=0, 길이=13, 누적=378, 점검='양의실수형식점검', 비고='Not Null default 0')
     가산세_기장불성실등: int = ERSField(default=0, 길이=13, 누적=391, 점검='양의실수형식점검', 비고='Not Null default 0 (14)')
     전자신고세액공제: int = ERSField(default=0, 길이=13, 누적=404, 점검='양의실수형식점검', 비고='Not Null default 0')
-    공란: str = ERSField(default=None, 길이=46, 누적=450, 점검='길이점검', 비고='SPACE')
+    연금계좌세액공제: int = ERSField(default=0, 길이=13, 누적=417, 점검='양의실수형식점검', 비고='Not Null default 0')
+    공란: str = ERSField(default=None, 길이=33, 누적=450, 점검='길이점검', 비고='SPACE')
     분납기준 = 10000000
     분납기준_50퍼센트 = 20000000
 
@@ -775,7 +776,7 @@ class TI30_국외자산양도소득세액공제_필요경비산입신청서(ERSR
 
 
 class 양도소득세신고(ERSReport):
-    published_date: ClassVar[date] = date(2023, 5, 2)
+    published_date: ClassVar[date] = date(2025, 12, 30)
     TI01_양도소득세과세표준신고서_HEADER: List[TI01_양도소득세과세표준신고서_HEADER]
     TI02_양도소득세과세표준신고서_기본사항: List[TI02_양도소득세과세표준신고서_기본사항]
     TI03_양도소득과세표준신고서_세율별내역: List[TI03_양도소득과세표준신고서_세율별내역]
