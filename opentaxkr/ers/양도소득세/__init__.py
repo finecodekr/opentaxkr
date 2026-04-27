@@ -106,7 +106,7 @@ class 양도세율구분(Enum):
 
 
 """항상 최신 서식을 기본값으로 사용하도록 한다."""
-from .records_20230502 import *
+from .records_20251230 import *
 
 
 def detect_report_date(data: BinaryIO):
