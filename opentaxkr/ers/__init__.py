@@ -2,7 +2,8 @@ import importlib
 import itertools
 import logging
 import pkgutil
-from dataclasses import asdict, dataclass, fields, Field, MISSING
+import dataclasses
+from dataclasses import asdict, dataclass, Field, fields, MISSING
 from datetime import date, datetime
 from decimal import Decimal
 from functools import cache
@@ -68,22 +69,23 @@ class ERSReport:
         data = {}
         col = 0
 
-        field: ERSField
+        field: Field
         for field in record_class.fields().values():
+            길이 = field.metadata['길이']
             try:
-                value = line[col:col + int(field.길이)].decode('euckr', errors='ignore').strip()
+                value = line[col:col + int(길이)].decode('euckr', errors='ignore').strip()
 
                 if field.type in [int, Decimal]:
                     # process crazy multi-key
                     if value and value[-1] in '}JKLMNOPQR':
                         value = '-' + value[:-1] + str('}JKLMNOPQR'.index(value[-1]))
 
-                    value = Decimal(value or 0) / pow(10, int(field.소수점길이 or 0))
+                    value = Decimal(value or 0) / pow(10, int(field.metadata['소수점길이'] or 0))
 
                 data[field.name] = value
-                col += int(field.길이)
+                col += int(길이)
             except Exception:
-                logging.error('parse error', record_class.__name__, field.name, field.길이, col, line[col:col + int(field.길이)], line)
+                logging.error('parse error', record_class.__name__, field.name, 길이, col, line[col:col + int(길이)], line)
                 raise
 
         return record_class(**data)
@@ -133,8 +135,8 @@ class ERSRecord:
 
     @classmethod
     @cache
-    def fields(cls) -> Dict[str, 'ERSField']:
-        return {field.name: field for field in fields(cls)}
+    def fields(cls) -> Dict[str, Field]:
+        return {f.name: f for f in fields(cls)}
 
     def __setattr__(self, key, value):
         value = self.wrap_as_field_type(key, value)
@@ -163,30 +165,30 @@ class ERSRecord:
     def serialize(self) -> bytes:
         return b''.join([self.serialize_field(field) for field in self.fields().values()])
 
-    def serialize_field(self, field: 'ERSField') -> bytes:
+    def serialize_field(self, field: Field) -> bytes:
         value = getattr(self, field.name)
+        길이 = field.metadata['길이']
 
         if value is None:
             if field.name in ['자료구분', '서식코드', '레코드구분', '레코드_구분']:
-                value = field.점검
+                value = field.metadata['점검']
             elif field.type in [int, Decimal]:
                 value = 0
             elif field.type == str:
                 value = ''
 
         if field.type == date:
-            value = value.strftime('%Y%m%d')[:field.길이]
+            value = value.strftime('%Y%m%d')[:길이]
         elif field.type in [int, Decimal]:
             # 길이와 소수점길이에 맞게 포매팅한 뒤 소수점을 제거한다.
-            value = f"{{:0{field.길이}.{field.소수점길이}f}}".format(value).replace('.', '').rjust(field.길이, '0')
+            value = f"{{:0{길이}.{field.metadata['소수점길이']}f}}".format(value).replace('.', '').rjust(길이, '0')
 
         elif isinstance(value, bool):
             value = 'Y' if value else 'N'
-        elif field.점검 == 'Y,N':
+        elif field.metadata['점검'] == 'Y,N':
             value = 'N' if not value else value
 
-        # return codecs.decode(str(value).encode('euckr', errors='ignore')[:field.길이], encoding='euckr', errors='ignore').strip()
-        return str(value).encode('euckr', errors='ignore').ljust(field.길이, b' ')[:field.길이]
+        return str(value).encode('euckr', errors='ignore').ljust(길이, b' ')[:길이]
 
     def asdict(self):
         return dict(서식명=self.__class__.__name__) | asdict(self)
@@ -201,7 +203,7 @@ class ERSRecord:
         for field in cls.fields().values():
             if field.name in check_fields:
                 checked_fields_exists = True
-                if not cls.extract_field(field, line) in map(lambda s: s.strip(), field.점검.split(',')):
+                if not cls.extract_field(field, line) in map(lambda s: s.strip(), field.metadata['점검'].split(',')):
                     return False
             elif field.type == 'date':
                 try:
@@ -218,21 +220,16 @@ class ERSRecord:
         return checked_fields_exists
 
     @classmethod
-    def extract_field(cls, field: 'ERSField', line: bytes):
-        return line[int(field.누적) - int(field.길이):int(field.누적)].decode('euckr')
+    def extract_field(cls, field: Field, line: bytes):
+        누적 = int(field.metadata['누적'])
+        길이 = int(field.metadata['길이'])
+        return line[누적 - 길이:누적].decode('euckr')
 
     def calculate(self):
         pass
 
 
-class ERSField(Field):
-    def __init__(self, default=MISSING, default_factory=MISSING, 길이=None, 누적=None, 점검='', 비고='', 소수점길이=0):
-        super().__init__(default=default, default_factory=default_factory,
-                         init=True, repr=True, hash=None, compare=True, kw_only=True,
-                         metadata=dict(길이=길이, 누적=누적, 점검=점검, 비고=비고, 소수점길이=소수점길이))
-
-        self.길이 = 길이
-        self.누적 = 누적
-        self.점검 = 점검
-        self.비고 = 비고
-        self.소수점길이 = 소수점길이
+def ERSField(default=MISSING, default_factory=MISSING, 길이=None, 누적=None, 점검='', 비고='', 소수점길이=0):
+    return dataclasses.field(default=default, default_factory=default_factory,
+                             init=True, repr=True, hash=None, compare=True, kw_only=True,
+                             metadata=dict(길이=길이, 누적=누적, 점검=점검, 비고=비고, 소수점길이=소수점길이))

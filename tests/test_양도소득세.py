@@ -136,8 +136,8 @@ class Test주식양도소득세신고(TestCase):
                 normalized_basic_info = bytearray(sample_lines[1])
                 for field_name in ['양수인_분자지분율', '양수인_분모지분율']:
                     field = LI02_양도소득_과세표준확정신고_기본정보.fields()[field_name]
-                    start = int(field.누적) - int(field.길이)
-                    end = int(field.누적)
-                    normalized_basic_info[start:end] = b'0' * int(field.길이)
+                    길이 = int(field.metadata['길이'])
+                    누적 = int(field.metadata['누적'])
+                    normalized_basic_info[누적 - 길이:누적] = b'0' * 길이
 
                 self.assertEqual(bytes(normalized_basic_info), parsed_lines[1])
